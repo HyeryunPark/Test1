@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".missing.MissingDetailActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_missing_detail"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/iv_missing_detail_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/image"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_missing_detail" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_missing_detail_image">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_missing_detail_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#f77345"
+                android:padding="8dp"
+                android:text="실종"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_missing_detail_species"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:padding="4dp"
+                android:text="[종]"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_missing_detail_breed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="품종"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tv_missing_detail_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="성별"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_missing_detail_neuter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:text=" (중성화 o)"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_missing_detail_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="/ 나이"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_missing_detail_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="/ 몸무게"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_missing_detail_pattern"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="/ 털색"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ㆍ 날  짜 : "
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_missing_detail_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2019-08-14"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ㆍ 장  소 : "
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_missing_detail_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="서울특별시 송파구 개룡역 맛집골목"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ㆍ 특  징 : "
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_missing_detail_feature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사람을 잘 따르고 애교가 많음."
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ㆍ 아이디 : "
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_missing_detail_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="작성자 닉네임"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ㆍ 연락처 : "
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_missing_detail_user_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="글 작성자 연락처"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ㆍ 기  타 : "
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_missing_detail_etc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사람을 따르고 호기심이 많습니다\n 앉아, 손 훈련이 되어있습니다."
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/btn_missing_detail_leaflet"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="전단지 만들기"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/btn_missing_detail_share"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="공  유"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/btn_missing_detail_comments"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="댓  글"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
