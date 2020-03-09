@@ -16,6 +16,7 @@ import javax.xml.parsers.DocumentBuilderFactory
 
 class ShelterActivity : AppCompatActivity() {
 
+    private lateinit var shelterPresenter : ShelterPresenter
     private lateinit var openApiTask: OpenApiTask
 
     // 본인 인증키
