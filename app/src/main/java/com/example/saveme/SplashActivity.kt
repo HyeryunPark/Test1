@@ -1,20 +1,18 @@
 package com.example.saveme
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_splash.*
+import androidx.appcompat.app.AppCompatActivity
 
 class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
 
-        appText.setOnClickListener {
-            var intent = Intent(this, PopUpActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        var intent = Intent(this, PopUpActivity::class.java)
+        startActivity(intent)
+        finish()
+
+
     }
 }

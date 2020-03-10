@@ -14,20 +14,25 @@
         <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
     </style>
 
-<!--    &lt;!&ndash; 액션바 없는 테마 &ndash;&gt;
-    <style name="NoActionTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        &lt;!&ndash; Customize your theme here. &ndash;&gt;
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <!--  Splash Screen  -->
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
 
-        &lt;!&ndash; 상태바 배경색&ndash;&gt;
-        <item name="android:statusBarColor" tools:targetApi="21">@color/colorPrimaryDark</item>
-        &lt;!&ndash; 상태바 글씨색&ndash;&gt;
-        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+    <!--    &lt;!&ndash; 액션바 없는 테마 &ndash;&gt;
+        <style name="NoActionTheme" parent="Theme.AppCompat.Light.NoActionBar">
+            &lt;!&ndash; Customize your theme here. &ndash;&gt;
+            <item name="colorPrimary">@color/colorPrimary</item>
+            <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+            <item name="colorAccent">@color/colorAccent</item>
+
+            &lt;!&ndash; 상태바 배경색&ndash;&gt;
+            <item name="android:statusBarColor" tools:targetApi="21">@color/colorPrimaryDark</item>
+            &lt;!&ndash; 상태바 글씨색&ndash;&gt;
+            <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
 
 
-    </style>-->
+        </style>-->
 
 
 </resources>
