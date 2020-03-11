@@ -19,6 +19,7 @@
 
     <TextView
         android:id="@+id/appInfo"
+        android:layout_marginBottom="400dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="유기동물 입양 &amp; 실종동물 찾기"
