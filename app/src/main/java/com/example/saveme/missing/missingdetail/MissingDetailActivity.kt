@@ -1,4 +1,4 @@
-package com.example.saveme.missing
+package com.example.saveme.missing.missingdetail
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.example.saveme.R
-import com.example.saveme.model.MissingModel
+import com.example.saveme.missing.MissingModel
 import com.example.saveme.network.RetrofitClient
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_missing_detail.*

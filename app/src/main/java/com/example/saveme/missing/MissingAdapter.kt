@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.saveme.R
-import com.example.saveme.model.MissingModel
+import com.example.saveme.missing.missingdetail.MissingDetailActivity
 import kotlinx.android.synthetic.main.item_missing.view.*
 import java.text.SimpleDateFormat
 

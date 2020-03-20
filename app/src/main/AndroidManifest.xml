@@ -12,16 +12,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".TestActivity"/>
         <activity android:name=".community.CommunityDetailActivity"/>
         <activity android:name=".community.CommunityActivity" />
         <activity
-            android:name=".missing.MissingReportActivity"
+            android:name=".missing.createmissing.MissingReportActivity"
             android:parentActivityName=".missing.MissingActivity" />
         <activity
             android:name=".shelter.ShelterDetailActivity"
             android:parentActivityName=".shelter.ShelterActivity" />
         <activity
-            android:name=".missing.MissingDetailActivity"
+            android:name=".missing.missingdetail.MissingDetailActivity"
             android:parentActivityName=".missing.MissingActivity" />
         <activity
             android:name=".missing.MissingActivity"

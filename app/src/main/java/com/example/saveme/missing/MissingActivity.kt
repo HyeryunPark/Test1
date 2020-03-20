@@ -6,7 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.saveme.R
-import com.example.saveme.model.MissingModel
+import com.example.saveme.missing.createmissing.MissingReportActivity
+import com.example.saveme.missing.missingdetail.MissingDetailActivity
 import com.example.saveme.network.RetrofitClient
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_missing.*

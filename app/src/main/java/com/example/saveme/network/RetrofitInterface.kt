@@ -1,6 +1,6 @@
 package com.example.saveme.network
 
-import com.example.saveme.model.MissingModel
+import com.example.saveme.missing.MissingModel
 import com.example.saveme.model.ShelterModel
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -44,15 +44,15 @@ interface RetrofitInterface {
     @GET("/shelters")
     fun requestShelterData(): Call<List<ShelterModel>>
 
-    // 실종동물 리스트 받아오기
+    // 실종동물 글 리스트 조회
     @GET("/missings")
     fun requestMissingData(): Call<List<MissingModel>>
 
-    // 실종동물 업로드하기
-/*    @POST("/missings/upload")
-    fun createMissingData(@Body )*/
+    // 실종동물 글 작성
+//    @POST("/missings")
+//    fun createMissingData(@Body createMissingData: MissingModel): Call<MissingModel>
     @FormUrlEncoded
-    @POST("/missings/")
+    @POST("/missings")
     fun createMissingData(
         @Field("status") status: String,
         @Field("date") date: String,
@@ -71,12 +71,12 @@ interface RetrofitInterface {
         @Field("etc") etc: String
     ): Call<MissingModel>
 
+    // 실동종물 글 수정
+    @PUT("/missings/{pk}")
+    fun updateMissingData(@Path("pk") pk: Int): Call<MissingModel>
 
-    // 실동종물 수정하기
-
-
-    // 실종동물 삭제하기
-    @DELETE("/missings/{pk}/")
+    // 실종동물 글 삭제하기
+    @DELETE("/missings/{pk}")
     fun deleteMissingData(@Path("pk") pk: Int): Call<MissingModel>
 
 
