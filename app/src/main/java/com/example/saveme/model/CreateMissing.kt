@@ -1,6 +1,6 @@
-package com.example.saveme.model
+package com.example.saveme.model;
 
-data class MissingModel(
+class CreateMissing(
     val status: String,
     val date: String,
     val city: String,

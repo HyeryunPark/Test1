@@ -1,4 +1,4 @@
-package com.example.saveme.missing
+package com.example.saveme.missing.createmissing
 
 import android.app.DatePickerDialog
 import android.graphics.Color
@@ -10,7 +10,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.saveme.R
-import com.example.saveme.model.MissingModel
+import com.example.saveme.missing.MissingModel
+import com.example.saveme.model.CreateMissing
 import com.example.saveme.network.RetrofitClient
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_missing_report.*
@@ -240,7 +241,7 @@ class MissingReportActivity : AppCompatActivity() {
                 Toast.makeText(this, "비어있는 칸을 채워주세요", Toast.LENGTH_SHORT).show()
             } else {
                 // 저장
-                var missingData = MissingModel(
+                var createMissing = CreateMissing(
                     missing_info_status.text.toString(),
                     missing_info_date.text.toString(),
                     missing_info_city.text.toString(),
@@ -257,31 +258,31 @@ class MissingReportActivity : AppCompatActivity() {
                     missing_info_feature.text.toString(),
                     missing_info_etc.text.toString()
                 )
-                createMissingData(missingData)
+                createMissingData(createMissing)
 
             }
         }
     }
 
-    private fun createMissingData(missingModel: MissingModel) {
-        // retrofit
+    private fun createMissingData(createMissing: CreateMissing) {
+  /*      // retrofit
         val retrofitInterface = RetrofitClient.retrofitInterface
         retrofitInterface.createMissingData(
-            missingModel.status,
-            missingModel.date,
-            missingModel.city,
-            missingModel.district,
-            missingModel.detailLocation,
-            missingModel.phone,
-            missingModel.species,
-            missingModel.breed,
-            missingModel.gender,
-            missingModel.neuter,
-            missingModel.age,
-            missingModel.weight,
-            missingModel.pattern,
-            missingModel.feature,
-            missingModel.etc
+            createMissing.status,
+            createMissing.date,
+            createMissing.city,
+            createMissing.district,
+            createMissing.detailLocation,
+            createMissing.phone,
+            createMissing.species,
+            createMissing.breed,
+            createMissing.gender,
+            createMissing.neuter,
+            createMissing.age,
+            createMissing.weight,
+            createMissing.pattern,
+            createMissing.feature,
+            createMissing.etc
         ).enqueue(object : Callback<MissingModel>{
             override fun onResponse(call: Call<MissingModel>, response: Response<MissingModel>) {
                 if (response.isSuccessful) {
@@ -299,6 +300,6 @@ class MissingReportActivity : AppCompatActivity() {
             }
 
 
-        })
+        })*/
     }
 }

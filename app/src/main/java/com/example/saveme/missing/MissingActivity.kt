@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.saveme.R
-import com.example.saveme.model.MissingModel
+import com.example.saveme.base.BaseActivity
+import com.example.saveme.missing.createmissing.MissingReportActivity
+import com.example.saveme.missing.missingdetail.MissingDetailActivity
 import com.example.saveme.network.RetrofitClient
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_missing.*
@@ -14,7 +16,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MissingActivity : AppCompatActivity() {
+class MissingActivity : BaseActivity(), MissingContract.View {
+
+    private lateinit var missingPresenter: MissingPresenter
+    var missingList = arrayListOf<MissingModel>()
+    lateinit var missingAdapter: MissingAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +32,11 @@ class MissingActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)  // 왼쪽버튼 사용 여부 true
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_white_24dp)   // 왼쪽버튼 이미지 설정
         supportActionBar!!.setDisplayShowTitleEnabled(false)    // 기본 타이틀 사용 여부 false
+
+        missingPresenter.takeView(this)
+
+        missingAdapter = MissingAdapter(this, missingList)
+        missingPresenter.loadItems(missingAdapter, missingList)
 
         // 툴바 타이틀 누르면 실종 동물 상세볼수 있음. (발표 후에 삭제할 것)
         toolbar_title.setOnClickListener {
@@ -41,34 +52,30 @@ class MissingActivity : AppCompatActivity() {
 
 
         // Recyclerview
-//        rv_missing.adapter = MissingAdapter(this,)
+        rv_missing.adapter = missingAdapter
         rv_missing.layoutManager = GridLayoutManager(this, 2)
-        rv_missing.adapter?.notifyDataSetChanged()
-
-        // retrofit
-        val retrofitInterface = RetrofitClient.retrofitInterface
-        retrofitInterface.requestMissingData().enqueue(object : Callback<List<MissingModel>>{
-
-            override fun onResponse(call: Call<List<MissingModel>>, response: Response<List<MissingModel>>) {
-                if(response.isSuccessful){
-                    Log.e("Success", Gson().toJson(response.body()))
-
-                    val body = response.body()
-                    body?.let {
-                        Log.e("잘들어옴",".")
-                        rv_missing.adapter = MissingAdapter(this@MissingActivity, response?.body()!!)
-                    }
-                }
-            }
-            override fun onFailure(call: Call<List<MissingModel>>, t: Throwable) {
-                Log.e("실종동물 정보 받아오기 실패",t.toString())
-            }
-
-        })
+        rv_missing.setHasFixedSize(true)
 
 
 
 
+
+    }
+
+    override fun initPresenter() {
+        missingPresenter = MissingPresenter()
+    }
+
+    override fun refresh() {
+        missingAdapter.notifyDataSetChanged()
+    }
+
+    override fun showError(error: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showToastMessage(msg: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 

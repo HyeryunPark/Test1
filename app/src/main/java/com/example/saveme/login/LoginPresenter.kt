@@ -12,10 +12,14 @@ import retrofit2.Response
 class LoginPresenter : LoginContract.Presenter {
 
     private var loginView : LoginContract.View? = null
-    private val retrofitInterface = RetrofitClient.retrofitInterface
+//    private val retrofitInterface = RetrofitClient.retrofitInterface
 
     override fun takeView(view: LoginContract.View) {       // takeView : View와 Presenter를 연결해준다. (loginView = view)
         loginView = view
+    }
+
+    override fun dropView() {       // View가 제거된것을 Presenter에 알려준다.
+        loginView = null
     }
 
     override fun getUserList() {
@@ -35,7 +39,7 @@ class LoginPresenter : LoginContract.Presenter {
     // view에서 입력한 email과 pawword를 받아와 db에 저장된 정보와 일치하는지 확인하는 함수
     override fun checkLoginUser(inputEmail: String, inputPw: String) {
 
-        retrofitInterface.logIn(inputEmail).enqueue(object : Callback<List<Json_User>>{
+       /* retrofitInterface.logIn(inputEmail).enqueue(object : Callback<List<Json_User>>{
             override fun onResponse(call: Call<List<Json_User>>, response: Response<List<Json_User>>) {
                 if (response.isSuccessful){
                     Log.e("Success", Gson().toJson(response.body()))
@@ -68,14 +72,11 @@ class LoginPresenter : LoginContract.Presenter {
                 Log.e("Login Fail",t.toString())
             }
 
-        })
+        })*/
 
     }
 
 
-    override fun dropView() {       // View가 제거된것을 Presenter에 알려준다.
-        loginView = null
-    }
 
     override fun logout() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

@@ -1,20 +1,33 @@
 package com.example.saveme.network
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    val retrofitInterface: RetrofitInterface
-    const val BASE_URL = "https://b7b02316.ngrok.io"    // ngrok으로 포워딩한 주소
+    const val BASE_URL = "https://1381cd33.ngrok.io"    // ngrok으로 포워딩한 주소
 
-    init {
+    // retrofit
+    fun retrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()
+        .client(client)
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
+        .build()
+
+    fun retrofitInterface(client: OkHttpClient): RetrofitInterface = retrofit(client).create(RetrofitInterface::class.java)
+
+/*    init {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         retrofitInterface = retrofit.create(RetrofitInterface::class.java)
-    }
+    }*/
+
+
 
 }
