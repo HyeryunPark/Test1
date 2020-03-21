@@ -105,7 +105,7 @@ class MissingDetailActivity : AppCompatActivity() {
 
     private fun deleteMissingData() {
         // 실종동물 글을 삭제하는 코드
-        // retrofit
+       /* // retrofit
         val retrofitInterface = RetrofitClient.retrofitInterface
         retrofitInterface.deleteMissingData(5).enqueue(object :Callback<MissingModel>{
             override fun onResponse(call: Call<MissingModel>, response: Response<MissingModel>) {
@@ -125,7 +125,7 @@ class MissingDetailActivity : AppCompatActivity() {
 
             }
 
-        })
+        })*/
 
     }
 

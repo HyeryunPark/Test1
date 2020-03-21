@@ -265,7 +265,7 @@ class MissingReportActivity : AppCompatActivity() {
     }
 
     private fun createMissingData(createMissing: CreateMissing) {
-        // retrofit
+  /*      // retrofit
         val retrofitInterface = RetrofitClient.retrofitInterface
         retrofitInterface.createMissingData(
             createMissing.status,
@@ -300,6 +300,6 @@ class MissingReportActivity : AppCompatActivity() {
             }
 
 
-        })
+        })*/
     }
 }

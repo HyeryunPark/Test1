@@ -1,6 +1,6 @@
 package com.example.saveme.missing
 
-data class MissingModel(
+class MissingModel(
     val id: Int,
     val status: String,
     val date: String,
@@ -18,3 +18,4 @@ data class MissingModel(
     val feature: String,
     val etc: String
 )
+

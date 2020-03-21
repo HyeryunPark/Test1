@@ -10,8 +10,19 @@ import com.example.saveme.missing.missingdetail.MissingDetailActivity
 import kotlinx.android.synthetic.main.item_missing.view.*
 import java.text.SimpleDateFormat
 
-class MissingAdapter(val context: Context, private val missingList: List<MissingModel>) :
+class MissingAdapter(val context: Context, private val missingList: ArrayList<MissingModel>) :
     RecyclerView.Adapter<MissingAdapter.MissingViewHolder>() {
+
+    fun addItem(item: MissingModel) {//아이템 추가
+        if (missingList != null) {//널체크 해줘야함
+            missingList.add(item)
+        }
+    }
+
+    fun removeAt(position: Int) {
+        missingList.removeAt(position)
+        notifyItemRemoved(position)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MissingViewHolder(parent)
 

@@ -1,7 +1,9 @@
 package com.example.saveme.network
 
 import com.example.saveme.missing.MissingModel
+import com.example.saveme.model.GetMissingList
 import com.example.saveme.model.ShelterModel
+import com.google.gson.JsonObject
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -46,7 +48,7 @@ interface RetrofitInterface {
 
     // 실종동물 글 리스트 조회
     @GET("/missings")
-    fun requestMissingData(): Call<List<MissingModel>>
+    fun getMissingData(): Call<List<GetMissingList>>
 
     // 실종동물 글 작성
 //    @POST("/missings")
