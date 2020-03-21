@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    const val BASE_URL = "https://f5b15537.ngrok.io"    // ngrok으로 포워딩한 주소
+    const val BASE_URL = "https://1381cd33.ngrok.io"    // ngrok으로 포워딩한 주소
 
     // retrofit
     fun retrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()

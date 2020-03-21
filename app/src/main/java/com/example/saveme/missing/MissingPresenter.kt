@@ -56,7 +56,6 @@ class MissingPresenter : MissingContract.Presenter {
 
                     val body = response.body()
                     body?.let {
-                        Log.e("잘들어옴", ".")
                         for (i in 0 until body.size) {
                             var missingList: GetMissingList = GetMissingList()
                             missingList = body[i]
@@ -78,7 +77,7 @@ class MissingPresenter : MissingContract.Presenter {
                                 missingList.feature,
                                 missingList.etc
                             )
-                            Log.e("들어오니?", "missingList.id"+ missingList.id)
+                            Log.e("들어오니?", "missingList.id : "+ missingList.id)
                             adapter.addItem(addData)
                             missingView!!.refresh()
                         }
@@ -88,7 +87,7 @@ class MissingPresenter : MissingContract.Presenter {
             }
 
             override fun onFailure(call: Call<List<GetMissingList>>, t: Throwable) {
-                Log.e("실종동물 정보 받아오기 실패", t.toString())
+                Log.e("Fail", t.toString())
             }
 
         })

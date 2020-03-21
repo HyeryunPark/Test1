@@ -26,7 +26,9 @@ class MissingAdapter(val context: Context, private val missingList: ArrayList<Mi
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MissingViewHolder(parent)
 
-    override fun getItemCount(): Int = missingList.size
+    override fun getItemCount(): Int {
+        return missingList.size
+    }
 
     override fun onBindViewHolder(holder: MissingViewHolder, position: Int) {
         val outputText: String

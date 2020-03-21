@@ -52,10 +52,10 @@ class MissingActivity : BaseActivity(), MissingContract.View {
 
 
         // Recyclerview
+        rv_missing.adapter = missingAdapter
         rv_missing.layoutManager = GridLayoutManager(this, 2)
-        rv_missing.adapter?.notifyDataSetChanged()
+        rv_missing.setHasFixedSize(true)
 
-//        rv_missing.adapter = MissingAdapter(this@MissingActivity, missingList)
 
 
 
