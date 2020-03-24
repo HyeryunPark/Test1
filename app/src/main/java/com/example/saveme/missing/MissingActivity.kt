@@ -1,5 +1,6 @@
 package com.example.saveme.missing
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -47,7 +48,8 @@ class MissingActivity : BaseActivity(), MissingContract.View {
         // 플로팅버튼 누르면 실종/보호 동물 글쓰기 가능
         fab_missing_write.setOnClickListener {
             var intent_write = Intent(this, MissingReportActivity::class.java)
-            startActivity(intent_write)
+//            startActivity(intent_write)
+            startActivityForResult(intent_write, 101)
         }
 
 
@@ -57,8 +59,37 @@ class MissingActivity : BaseActivity(), MissingContract.View {
         rv_missing.setHasFixedSize(true)
 
 
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
+        when (requestCode) {
+            101 -> {
+                when (resultCode) {
+                    Activity.RESULT_OK -> if (data != null) {
+                        missingPresenter.addItems(
+                            data.getStringExtra("status"),
+                            data.getStringExtra("date"),
+                            data.getStringExtra("city"),
+                            data.getStringExtra("district"),
+                            data.getStringExtra("detail_location"),
+                            data.getStringExtra("phone"),
+                            data.getStringExtra("species"),
+                            data.getStringExtra("breed"),
+                            data.getStringExtra("gender"),
+                            data.getStringExtra("neuter"),
+                            data.getStringExtra("age"),
+                            data.getStringExtra("weight"),
+                            data.getStringExtra("pattern"),
+                            data.getStringExtra("feature"),
+                            data.getStringExtra("etc")
+                        )
+
+                    }
+                }
+            }
+        }
 
     }
 
