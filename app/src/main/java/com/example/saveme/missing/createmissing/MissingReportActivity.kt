@@ -1,6 +1,8 @@
 package com.example.saveme.missing.createmissing
 
+import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
@@ -237,11 +239,13 @@ class MissingReportActivity : AppCompatActivity() {
 
     private fun pressedRegistrationBtn() {
         btn_missing_report_registration.setOnClickListener {
+
+            val intent = Intent()
             if (missing_info_detail_location.text.isEmpty() && missing_info_phone.text.isEmpty() && missing_info_pattern.text.isEmpty() && missing_info_feature.text.isEmpty() && missing_info_etc.text.isEmpty()) {
                 Toast.makeText(this, "비어있는 칸을 채워주세요", Toast.LENGTH_SHORT).show()
             } else {
                 // 저장
-                var createMissing = CreateMissing(
+/*                var createMissing = CreateMissing(
                     missing_info_status.text.toString(),
                     missing_info_date.text.toString(),
                     missing_info_city.text.toString(),
@@ -258,48 +262,64 @@ class MissingReportActivity : AppCompatActivity() {
                     missing_info_feature.text.toString(),
                     missing_info_etc.text.toString()
                 )
-                createMissingData(createMissing)
-
+                createMissingData(createMissing)*/
+                intent.putExtra("status", missing_info_status.text.toString())
+                intent.putExtra("date", missing_info_date.text.toString())
+                intent.putExtra("city", missing_info_city.text.toString())
+                intent.putExtra("district", missing_info_district.text.toString())
+                intent.putExtra("detail_location", missing_info_detail_location.text.toString())
+                intent.putExtra("phone", missing_info_phone.text.toString())
+                intent.putExtra("species", missing_info_species.text.toString())
+                intent.putExtra("breed", missing_info_breed.text.toString())
+                intent.putExtra("gender", missing_info_gender.text.toString())
+                intent.putExtra("neuter", false)
+                intent.putExtra("age", missing_info_age.text.toString())
+                intent.putExtra("weight", missing_info_weight.text.toString())
+                intent.putExtra("pattern", missing_info_pattern.text.toString())
+                intent.putExtra("feature", missing_info_feature.text.toString())
+                intent.putExtra("etc", missing_info_etc.text.toString())
+                setResult(Activity.RESULT_OK, intent)
+                finish()
             }
         }
     }
 
     private fun createMissingData(createMissing: CreateMissing) {
-  /*      // retrofit
-        val retrofitInterface = RetrofitClient.retrofitInterface
-        retrofitInterface.createMissingData(
-            createMissing.status,
-            createMissing.date,
-            createMissing.city,
-            createMissing.district,
-            createMissing.detailLocation,
-            createMissing.phone,
-            createMissing.species,
-            createMissing.breed,
-            createMissing.gender,
-            createMissing.neuter,
-            createMissing.age,
-            createMissing.weight,
-            createMissing.pattern,
-            createMissing.feature,
-            createMissing.etc
-        ).enqueue(object : Callback<MissingModel>{
-            override fun onResponse(call: Call<MissingModel>, response: Response<MissingModel>) {
-                if (response.isSuccessful) {
-                    Log.e("Success", Gson().toJson(response.body()))
+        /*      // retrofit
+              val retrofitInterface = RetrofitClient.retrofitInterface
+              retrofitInterface.createMissingData(
+                  createMissing.status,
+                  createMissing.date,
+                  createMissing.city,
+                  createMissing.district,
+                  createMissing.detailLocation,
+                  createMissing.phone,
+                  createMissing.species,
+                  createMissing.breed,
+                  createMissing.gender,
+                  createMissing.neuter,
+                  createMissing.age,
+                  createMissing.weight,
+                  createMissing.pattern,
+                  createMissing.feature,
+                  createMissing.etc
+              ).enqueue(object : Callback<MissingModel>{
+                  override fun onResponse(call: Call<MissingModel>, response: Response<MissingModel>) {
+                      if (response.isSuccessful) {
+                          Log.e("Success", Gson().toJson(response.body()))
 
-                    Toast.makeText(this@MissingReportActivity,"글을 등록하였습니다.",Toast.LENGTH_SHORT).show()
-                    finish()
+                          Toast.makeText(this@MissingReportActivity,"글을 등록하였습니다.",Toast.LENGTH_SHORT).show()
+                          finish()
 
-                } else
-                    Log.e("unSuccess", Gson().toJson(response.errorBody()))
-            }
+                      } else
+                          Log.e("unSuccess", Gson().toJson(response.errorBody()))
+                  }
 
-            override fun onFailure(call: Call<MissingModel>, t: Throwable) {
-                Log.e("실종동물 정보 넣기 실패", t.toString())
-            }
+                  override fun onFailure(call: Call<MissingModel>, t: Throwable) {
+                      Log.e("실종동물 정보 넣기 실패", t.toString())
+                  }
 
 
-        })*/
+              })*/
     }
 }

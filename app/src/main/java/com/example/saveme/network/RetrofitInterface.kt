@@ -1,6 +1,7 @@
 package com.example.saveme.network
 
 import com.example.saveme.missing.MissingModel
+import com.example.saveme.model.CreateMissing
 import com.example.saveme.model.GetMissingList
 import com.example.saveme.model.ShelterModel
 import com.google.gson.JsonObject
@@ -51,9 +52,9 @@ interface RetrofitInterface {
     fun getMissingData(): Call<List<GetMissingList>>
 
     // 실종동물 글 작성
-//    @POST("/missings")
-//    fun createMissingData(@Body createMissingData: MissingModel): Call<MissingModel>
-    @FormUrlEncoded
+    @POST("/missings/")
+    fun createMissingData(@Body createMissingData: CreateMissing): Call<CreateMissing>
+/*    @FormUrlEncoded
     @POST("/missings")
     fun createMissingData(
         @Field("status") status: String,
@@ -71,7 +72,7 @@ interface RetrofitInterface {
         @Field("pattern") pattern: String,
         @Field("feature") feature: String,
         @Field("etc") etc: String
-    ): Call<MissingModel>
+    ): Call<MissingModel>*/
 
     // 실동종물 글 수정
     @PUT("/missings/{pk}")
@@ -79,7 +80,7 @@ interface RetrofitInterface {
 
     // 실종동물 글 삭제하기
     @DELETE("/missings/{pk}")
-    fun deleteMissingData(@Path("pk") pk: Int): Call<MissingModel>
+    fun deleteMissingData(@Path("pk") pk: Int): Call<ResponseBody>
 
 
 
