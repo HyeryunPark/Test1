@@ -1,11 +1,13 @@
 package com.example.saveme.missing
 
+import android.content.Context
 import android.util.Log
 import com.example.saveme.model.CreateMissing
 import com.example.saveme.model.GetMissingList
 import com.example.saveme.network.RetrofitClient
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,8 +25,13 @@ class MissingPresenter : MissingContract.Presenter {
         missingView = null
     }
 
-    override fun loadItems(adapter: MissingAdapter, list: ArrayList<MissingModel>) {  // 글 전체 불러오기
-        val client: OkHttpClient = OkHttpClient()
+    override fun loadItems(
+        adapter: MissingAdapter,
+        list: ArrayList<MissingModel>,
+        context: Context
+    ) {  // 글 전체 불러오기
+//        val client: OkHttpClient = OkHttpClient()
+        val client: OkHttpClient = RetrofitClient.getClient(context, "")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)
 
         val request: Call<List<GetMissingList>> = retrofitInterface.getMissingData()
@@ -76,41 +83,25 @@ class MissingPresenter : MissingContract.Presenter {
     }
 
 
-    override fun addItems(
-        status: String,
-        date: String,
-        city: String,
-        district: String,
-        detailLocation: String,
-        phone: String,
-        species: String,
-        breed: String,
-        gender: String,
-        neuter: String,
-        age: String,
-        weight: String,
-        pattern: String,
-        feature: String,
-        etc: String
-    ) {   // 글 작성하기
-        val client: OkHttpClient = OkHttpClient()
+    override fun addItems(status: String, date: String, city: String, district: String, detailLocation: String, phone: String, species: String, breed: String, gender: String, neuter: Boolean, age: String, weight: String, pattern: String, feature: String, etc: String, context: Context) {   // 글 작성하기
+//        val client: OkHttpClient = OkHttpClient()
+        val client: OkHttpClient = RetrofitClient.getClient(context, "")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)
 
         val createMissing: CreateMissing = CreateMissing(status, date, city, district, detailLocation, phone, species, breed, gender, neuter, age, weight, pattern, feature, etc)
         val request: Call<CreateMissing> = retrofitInterface.createMissingData(createMissing)
-        request.enqueue(object : Callback<CreateMissing>{
+        request.enqueue(object : Callback<CreateMissing> {
             override fun onResponse(call: Call<CreateMissing>, response: Response<CreateMissing>) {
-                if(response.isSuccessful){
-                    Log.e("Success(글 추가)", Gson().toJson(response.body()))
+                if (response.isSuccessful) {
+                    Log.e("Success(글 추가)", "")
                     missingView!!.refresh()
-                }else{
+                } else {
 
                 }
             }
 
             override fun onFailure(call: Call<CreateMissing>, t: Throwable) {
                 Log.e("Fail(글 추가)", t.toString())
-
             }
 
         })
@@ -120,8 +111,22 @@ class MissingPresenter : MissingContract.Presenter {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun deleteItems() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun deleteItems(pk: Int) {     // 글 삭제하기
+        val client: OkHttpClient = OkHttpClient()
+        val retrofitInterface = RetrofitClient.retrofitInterface(client)
+
+        val request: Call<ResponseBody> = retrofitInterface.deleteMissingData(pk)
+        request.enqueue(object : Callback<ResponseBody> {
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                Log.e("Success(글 삭제)", "")
+                missingView!!.refresh()
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.e("Fail(삭제)", t.toString())
+            }
+        })
     }
 
 

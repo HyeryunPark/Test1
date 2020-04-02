@@ -37,7 +37,7 @@ class MissingActivity : BaseActivity(), MissingContract.View {
         missingPresenter.takeView(this)
 
         missingAdapter = MissingAdapter(this, missingList)
-        missingPresenter.loadItems(missingAdapter, missingList)
+        missingPresenter.loadItems(missingAdapter, missingList, this)
 
         // 툴바 타이틀 누르면 실종 동물 상세볼수 있음. (발표 후에 삭제할 것)
         toolbar_title.setOnClickListener {
@@ -78,12 +78,13 @@ class MissingActivity : BaseActivity(), MissingContract.View {
                             data.getStringExtra("species"),
                             data.getStringExtra("breed"),
                             data.getStringExtra("gender"),
-                            data.getStringExtra("neuter"),
+                            data.getBooleanExtra("neuter", false),
                             data.getStringExtra("age"),
                             data.getStringExtra("weight"),
                             data.getStringExtra("pattern"),
                             data.getStringExtra("feature"),
-                            data.getStringExtra("etc")
+                            data.getStringExtra("etc"),
+                            this
                         )
 
                     }

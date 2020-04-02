@@ -52,7 +52,7 @@ interface RetrofitInterface {
     fun getMissingData(): Call<List<GetMissingList>>
 
     // 실종동물 글 작성
-    @POST("/missings")
+    @POST("/missings/")
     fun createMissingData(@Body createMissingData: CreateMissing): Call<CreateMissing>
 /*    @FormUrlEncoded
     @POST("/missings")
@@ -80,7 +80,7 @@ interface RetrofitInterface {
 
     // 실종동물 글 삭제하기
     @DELETE("/missings/{pk}")
-    fun deleteMissingData(@Path("pk") pk: Int): Call<MissingModel>
+    fun deleteMissingData(@Path("pk") pk: Int): Call<ResponseBody>
 
 
 
