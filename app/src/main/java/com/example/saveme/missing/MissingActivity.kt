@@ -84,7 +84,9 @@ class MissingActivity : BaseActivity(), MissingContract.View {
                             data.getStringExtra("pattern"),
                             data.getStringExtra("feature"),
                             data.getStringExtra("etc"),
-                            this
+                            this,
+                            missingAdapter,
+                            missingList
                         )
 
                     }

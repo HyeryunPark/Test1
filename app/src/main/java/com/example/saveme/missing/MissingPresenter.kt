@@ -83,7 +83,8 @@ class MissingPresenter : MissingContract.Presenter {
     }
 
 
-    override fun addItems(status: String, date: String, city: String, district: String, detailLocation: String, phone: String, species: String, breed: String, gender: String, neuter: Boolean, age: String, weight: String, pattern: String, feature: String, etc: String, context: Context) {   // 글 작성하기
+    override fun addItems(status: String, date: String, city: String, district: String, detailLocation: String, phone: String, species: String, breed: String, gender: String, neuter: Boolean, age: String, weight: String, pattern: String, feature: String, etc: String,
+                          context: Context, adapter: MissingAdapter, list: ArrayList<MissingModel>) {   // 글 작성하기
 //        val client: OkHttpClient = OkHttpClient()
         val client: OkHttpClient = RetrofitClient.getClient(context, "")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)
@@ -94,6 +95,8 @@ class MissingPresenter : MissingContract.Presenter {
             override fun onResponse(call: Call<CreateMissing>, response: Response<CreateMissing>) {
                 if (response.isSuccessful) {
                     Log.e("Success(글 추가)", "")
+                    list.clear()
+                    loadItems(adapter, list, context)
                     missingView!!.refresh()
                 } else {
 

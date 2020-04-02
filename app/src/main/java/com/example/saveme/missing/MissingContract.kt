@@ -16,7 +16,8 @@ interface MissingContract {
         fun loadItems(adapter: MissingAdapter, list: ArrayList<MissingModel>, context: Context)
 
         fun addItems(status: String, date: String, city: String, district: String, detailLocation: String, phone: String, species: String,
-            breed: String, gender: String, neuter: Boolean, age: String, weight: String, pattern: String, feature: String, etc: String, context: Context)
+            breed: String, gender: String, neuter: Boolean, age: String, weight: String, pattern: String, feature: String, etc: String,
+                     context: Context, adapter: MissingAdapter, list: ArrayList<MissingModel>)
 
         fun updateItems()
 
