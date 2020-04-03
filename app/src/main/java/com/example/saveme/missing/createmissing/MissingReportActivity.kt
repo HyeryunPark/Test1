@@ -21,9 +21,12 @@ import retrofit2.Call
 import java.util.*
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 
 
 class MissingReportActivity : AppCompatActivity() {
+
+    var modifyId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,7 @@ class MissingReportActivity : AppCompatActivity() {
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_pink_24dp)   // 왼쪽버튼 이미지 설정
         supportActionBar!!.setDisplayShowTitleEnabled(false)    // 기본 타이틀 사용 여부 false
 
+        setData()
         pressedRegistrationBtn()
 
         // 상태(실종, 보호, 목격, 완료)
@@ -244,25 +248,9 @@ class MissingReportActivity : AppCompatActivity() {
             if (missing_info_detail_location.text.isEmpty() && missing_info_phone.text.isEmpty() && missing_info_pattern.text.isEmpty() && missing_info_feature.text.isEmpty() && missing_info_etc.text.isEmpty()) {
                 Toast.makeText(this, "비어있는 칸을 채워주세요", Toast.LENGTH_SHORT).show()
             } else {
-                // 저장
-/*                var createMissing = CreateMissing(
-                    missing_info_status.text.toString(),
-                    missing_info_date.text.toString(),
-                    missing_info_city.text.toString(),
-                    missing_info_district.text.toString(),
-                    missing_info_detail_location.text.toString(),
-                    missing_info_phone.text.toString(),
-                    missing_info_species.text.toString(),
-                    missing_info_breed.text.toString(),
-                    missing_info_gender.text.toString(),
-                    missing_info_neuter.text.toString(),
-                    missing_info_age.text.toString(),
-                    missing_info_weight.text.toString(),
-                    missing_info_pattern.text.toString(),
-                    missing_info_feature.text.toString(),
-                    missing_info_etc.text.toString()
-                )
-                createMissingData(createMissing)*/
+                if (modifyId != -1) {
+                    intent.putExtra("id", modifyId)
+                }
                 intent.putExtra("status", missing_info_status.text.toString())
                 intent.putExtra("date", missing_info_date.text.toString())
                 intent.putExtra("city", missing_info_city.text.toString())
@@ -284,42 +272,41 @@ class MissingReportActivity : AppCompatActivity() {
         }
     }
 
-    private fun createMissingData(createMissing: CreateMissing) {
-        /*      // retrofit
-              val retrofitInterface = RetrofitClient.retrofitInterface
-              retrofitInterface.createMissingData(
-                  createMissing.status,
-                  createMissing.date,
-                  createMissing.city,
-                  createMissing.district,
-                  createMissing.detailLocation,
-                  createMissing.phone,
-                  createMissing.species,
-                  createMissing.breed,
-                  createMissing.gender,
-                  createMissing.neuter,
-                  createMissing.age,
-                  createMissing.weight,
-                  createMissing.pattern,
-                  createMissing.feature,
-                  createMissing.etc
-              ).enqueue(object : Callback<MissingModel>{
-                  override fun onResponse(call: Call<MissingModel>, response: Response<MissingModel>) {
-                      if (response.isSuccessful) {
-                          Log.e("Success", Gson().toJson(response.body()))
+    private fun setData(){  // 수정시 저장되어있던 데이터들을 빈칸에 입력해주는 코드
+        if (intent.hasExtra("status")) {
+            actionBar?.title = "실종/보호 신고 수정"
+            modifyId = intent.getIntExtra("id", -1)
+            Log.e("주제수정 id", modifyId.toString())
+            missing_info_status.text = intent.getStringExtra("status")
 
-                          Toast.makeText(this@MissingReportActivity,"글을 등록하였습니다.",Toast.LENGTH_SHORT).show()
-                          finish()
+            // datetime 에서 date 만 뽑아와서 출력
+            val outputFormat = SimpleDateFormat("yyyy-MM-dd")
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.S")
 
-                      } else
-                          Log.e("unSuccess", Gson().toJson(response.errorBody()))
-                  }
+            val inputText = intent.getStringExtra("date")
+            val date = inputFormat.parse(inputText)
+            val outputText = outputFormat.format(date)
+            missing_info_date.text = outputText
 
-                  override fun onFailure(call: Call<MissingModel>, t: Throwable) {
-                      Log.e("실종동물 정보 넣기 실패", t.toString())
-                  }
-
-
-              })*/
+            missing_info_city.text = intent.getStringExtra("city")
+            missing_info_district.text = intent.getStringExtra("district")
+            missing_info_detail_location.setText(intent.getStringExtra("detail_location"))
+            missing_info_phone.setText(intent.getStringExtra("phone"))
+            missing_info_species.text = intent.getStringExtra("species")
+            missing_info_breed.text = intent.getStringExtra("breed")
+            missing_info_gender.text = intent.getStringExtra("gender")
+            if (intent.getBooleanExtra("neuter", false)){
+                missing_info_neuter.isChecked = true
+                Log.e("tr","")
+            } else {
+                Log.e("fa", "")
+            }
+            missing_info_age.text = intent.getStringExtra("age")
+            missing_info_weight.text = intent.getStringExtra("weight")
+            missing_info_pattern.setText(intent.getStringExtra("pattern"))
+            missing_info_feature.setText(intent.getStringExtra("feature"))
+            missing_info_etc.setText(intent.getStringExtra("etc"))
+        }
     }
+
 }

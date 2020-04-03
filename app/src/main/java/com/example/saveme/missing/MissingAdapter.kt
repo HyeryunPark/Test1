@@ -1,16 +1,26 @@
 package com.example.saveme.missing
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.saveme.R
+import com.example.saveme.missing.createmissing.MissingReportActivity
 import com.example.saveme.missing.missingdetail.MissingDetailActivity
 import kotlinx.android.synthetic.main.item_missing.view.*
 import java.text.SimpleDateFormat
 
-class MissingAdapter(val context: Context, private val missingList: ArrayList<MissingModel>) :
+
+class MissingAdapter(
+    val context: Context,
+    private val missingList: ArrayList<MissingModel>,
+    val presenterMissing: MissingPresenter
+) :
     RecyclerView.Adapter<MissingAdapter.MissingViewHolder>() {
 
     fun addItem(item: MissingModel) {//아이템 추가
@@ -79,8 +89,48 @@ class MissingAdapter(val context: Context, private val missingList: ArrayList<Mi
             intent.putExtra("district", missingList[position].district)
 
             (context as MissingActivity).startActivity(intent)
-
         }
+
+        holder.itemView.setOnLongClickListener {
+            val items = arrayOf<CharSequence>("수정하기", "삭제하기")
+            val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+            builder.setItems(items, DialogInterface.OnClickListener { dialog, item ->
+
+                if (items[item] == items[0]) {  // 수정하기
+                    Log.e("missingList.id", missingList[position].id.toString())
+                    presenterMissing.modifyActivity(
+                        missingList[position].id,
+                        MissingModel(
+                            missingList[position].id,
+                            missingList[position].status,
+                            missingList[position].date,
+                            missingList[position].city,
+                            missingList[position].district,
+                            missingList[position].detailLocation,
+                            missingList[position].phone,
+                            missingList[position].species,
+                            missingList[position].breed,
+                            missingList[position].gender,
+                            missingList[position].neuter,
+                            missingList[position].age,
+                            missingList[position].weight,
+                            missingList[position].pattern,
+                            missingList[position].feature,
+                            missingList[position].etc
+                        )
+                    )
+                    dialog!!.dismiss()
+                } else if (items[item] == items[1]) {    // 삭제하기
+                    presenterMissing.deleteItems(missingList[position].id, context)
+                    removeAt(position)
+                    dialog!!.dismiss()
+                }
+            })
+            builder.show()
+
+            true
+        }
+
 
     }
 

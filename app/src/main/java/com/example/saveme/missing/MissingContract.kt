@@ -9,6 +9,8 @@ interface MissingContract {
     interface View : BaseView {
 
         fun refresh()
+
+        fun modifyActivity(id: Int, missingModel: MissingModel)
     }
 
     interface Presenter : BasePresenter<View> {
@@ -19,9 +21,11 @@ interface MissingContract {
             breed: String, gender: String, neuter: Boolean, age: String, weight: String, pattern: String, feature: String, etc: String,
                      context: Context, adapter: MissingAdapter, list: ArrayList<MissingModel>)
 
-        fun updateItems()
+        fun updateItems(pk: Int, missingModel: MissingModel, context: Context, adapter: MissingAdapter, list: ArrayList<MissingModel>)
 
-        fun deleteItems(pk: Int)
+        fun deleteItems(pk: Int, context: Context)
+
+        fun modifyActivity(id: Int, missingModel: MissingModel)
 
     }
 }

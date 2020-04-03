@@ -11,7 +11,7 @@ class MissingModel(
     val species: String,
     val breed: String,
     val gender: String,
-    val neuter: String,
+    val neuter: Boolean,
     val age: String,
     val weight: String,
     val pattern: String,

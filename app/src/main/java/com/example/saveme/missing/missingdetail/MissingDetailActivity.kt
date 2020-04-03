@@ -37,7 +37,7 @@ class MissingDetailActivity : AppCompatActivity() {
         val species = detail_intent.getStringExtra("species")
         val breed = detail_intent.getStringExtra("breed")
         val gender = detail_intent.getStringExtra("gender")
-        val neuter = detail_intent.getStringExtra("neuter")
+        val neuter = detail_intent.getBooleanExtra("neuter", false)
         val age = detail_intent.getStringExtra("age")
         val weight = detail_intent.getStringExtra("weight")
         val pattern = detail_intent.getStringExtra("pattern")
@@ -63,7 +63,7 @@ class MissingDetailActivity : AppCompatActivity() {
         tv_missing_detail_species.text = "[" + species + "]"
         tv_missing_detail_breed.text = breed
         tv_missing_detail_gender.text = gender
-        if (neuter == "true") {
+        if (neuter) {
             tv_missing_detail_neuter.text = " (중성화 o)"
         } else {
             tv_missing_detail_neuter.text = " (중성화 x)"

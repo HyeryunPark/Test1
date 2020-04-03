@@ -24,7 +24,7 @@ class GetMissingList {
     @SerializedName("gender")
     val gender = ""
     @SerializedName("neuter")
-    val neuter = ""
+    val neuter = false
     @SerializedName("age")
     val age = ""
     @SerializedName("weight")

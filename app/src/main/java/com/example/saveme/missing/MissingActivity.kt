@@ -36,14 +36,8 @@ class MissingActivity : BaseActivity(), MissingContract.View {
 
         missingPresenter.takeView(this)
 
-        missingAdapter = MissingAdapter(this, missingList)
+        missingAdapter = MissingAdapter(this, missingList, missingPresenter)
         missingPresenter.loadItems(missingAdapter, missingList, this)
-
-        // 툴바 타이틀 누르면 실종 동물 상세볼수 있음. (발표 후에 삭제할 것)
-        toolbar_title.setOnClickListener {
-            var intent_toolbarTitle = Intent(this, MissingDetailActivity::class.java)
-            startActivity(intent_toolbarTitle)
-        }
 
         // 플로팅버튼 누르면 실종/보호 동물 글쓰기 가능
         fab_missing_write.setOnClickListener {
@@ -52,12 +46,10 @@ class MissingActivity : BaseActivity(), MissingContract.View {
             startActivityForResult(intent_write, 101)
         }
 
-
         // Recyclerview
         rv_missing.adapter = missingAdapter
         rv_missing.layoutManager = GridLayoutManager(this, 2)
         rv_missing.setHasFixedSize(true)
-
 
     }
 
@@ -65,7 +57,7 @@ class MissingActivity : BaseActivity(), MissingContract.View {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
-            101 -> {
+            101 -> {    // 글 작성하고 돌아왔을 때
                 when (resultCode) {
                     Activity.RESULT_OK -> if (data != null) {
                         missingPresenter.addItems(
@@ -92,6 +84,34 @@ class MissingActivity : BaseActivity(), MissingContract.View {
                     }
                 }
             }
+            102 -> {    // 글 수정하고 돌아왔을 때
+                when (resultCode) {
+                    Activity.RESULT_OK -> if (data != null) {
+                        Log.e("수정화면에서 돌아왔을때 id", data.getIntExtra("id", -1).toString())
+
+                        val missingModel: MissingModel = MissingModel(
+                            data.getIntExtra("id", -1),
+                            data.getStringExtra("status"),
+                            data.getStringExtra("date"),
+                            data.getStringExtra("city"),
+                            data.getStringExtra("district"),
+                            data.getStringExtra("detail_location"),
+                            data.getStringExtra("phone"),
+                            data.getStringExtra("species"),
+                            data.getStringExtra("breed"),
+                            data.getStringExtra("gender"),
+                            data.getBooleanExtra("neuter", false),
+                            data.getStringExtra("age"),
+                            data.getStringExtra("weight"),
+                            data.getStringExtra("pattern"),
+                            data.getStringExtra("feature"),
+                            data.getStringExtra("etc"))
+
+                        missingPresenter.updateItems(data.getIntExtra("id", -1), missingModel, this, missingAdapter, missingList)
+                    }
+                }
+            }
+
         }
 
     }
@@ -102,6 +122,27 @@ class MissingActivity : BaseActivity(), MissingContract.View {
 
     override fun refresh() {
         missingAdapter.notifyDataSetChanged()
+    }
+
+    override fun modifyActivity(id: Int, missingModel: MissingModel) { // 글 수정화면과 처음 작성하는 화면 공유
+        val intent = Intent(this, MissingReportActivity::class.java)
+        intent.putExtra("id", id)
+        intent.putExtra("status", missingModel.status)
+        intent.putExtra("date", missingModel.date)
+        intent.putExtra("city", missingModel.city)
+        intent.putExtra("district", missingModel.district)
+        intent.putExtra("detail_location", missingModel.detailLocation)
+        intent.putExtra("phone", missingModel.phone)
+        intent.putExtra("species", missingModel.species)
+        intent.putExtra("breed", missingModel.breed)
+        intent.putExtra("gender", missingModel.gender)
+        intent.putExtra("neuter", missingModel.neuter)
+        intent.putExtra("age", missingModel.age)
+        intent.putExtra("weight", missingModel.weight)
+        intent.putExtra("pattern", missingModel.pattern)
+        intent.putExtra("feature", missingModel.feature)
+        intent.putExtra("etc", missingModel.etc)
+        startActivityForResult(intent, 102)
     }
 
     override fun showError(error: String) {
