@@ -96,10 +96,11 @@ class MissingAdapter(
             builder.setItems(items, DialogInterface.OnClickListener { dialog, item ->
                 if (items[item] == items[0]) {  // 수정하기
                      Log.e("missingList.id", missingList[position].id.toString())
+
                 } else if (items[item] == items[1]) {    // 삭제하기
                     if (missingList != null) {
-                        removeAt(position)
                         presenterMissing.deleteItems(missingList[position].id, context)
+                        removeAt(position)
                     }
                     dialog!!.dismiss()
                 }
@@ -107,8 +108,6 @@ class MissingAdapter(
             builder.show()
 
             true
-
-
         }
 
 

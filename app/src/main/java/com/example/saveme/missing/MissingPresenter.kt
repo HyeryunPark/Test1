@@ -111,7 +111,7 @@ class MissingPresenter : MissingContract.Presenter {
     }
 
     override fun deleteItems(pk: Int, context: Context) {     // 글 삭제하기
-        Log.e("missing DELETE", "삭제")
+        Log.e("missing DELETE", "$pk")
 //        val client: OkHttpClient = OkHttpClient()
         val client: OkHttpClient = RetrofitClient.getClient(context, "")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)
