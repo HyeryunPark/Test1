@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 
-    const val BASE_URL = "https://e9f383c3.ngrok.io"    // ngrok으로 포워딩한 주소
+    const val BASE_URL = "http://10.0.2.2:8000"
 
     val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY

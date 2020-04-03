@@ -1,16 +1,25 @@
 package com.example.saveme.missing
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.saveme.R
 import com.example.saveme.missing.missingdetail.MissingDetailActivity
 import kotlinx.android.synthetic.main.item_missing.view.*
 import java.text.SimpleDateFormat
 
-class MissingAdapter(val context: Context, private val missingList: ArrayList<MissingModel>) :
+
+class MissingAdapter(
+    val context: Context,
+    private val missingList: ArrayList<MissingModel>,
+    val presenterMissing: MissingPresenter
+) :
     RecyclerView.Adapter<MissingAdapter.MissingViewHolder>() {
 
     fun addItem(item: MissingModel) {//아이템 추가
@@ -79,8 +88,29 @@ class MissingAdapter(val context: Context, private val missingList: ArrayList<Mi
             intent.putExtra("district", missingList[position].district)
 
             (context as MissingActivity).startActivity(intent)
+        }
+
+        holder.itemView.setOnLongClickListener {
+            val items = arrayOf<CharSequence>("수정하기", "삭제하기")
+            val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+            builder.setItems(items, DialogInterface.OnClickListener { dialog, item ->
+                if (items[item] == items[0]) {  // 수정하기
+                     Log.e("missingList.id", missingList[position].id.toString())
+                } else if (items[item] == items[1]) {    // 삭제하기
+                    if (missingList != null) {
+                        removeAt(position)
+                        presenterMissing.deleteItems(missingList[position].id, context)
+                    }
+                    dialog!!.dismiss()
+                }
+            })
+            builder.show()
+
+            true
+
 
         }
+
 
     }
 

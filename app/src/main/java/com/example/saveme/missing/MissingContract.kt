@@ -21,7 +21,7 @@ interface MissingContract {
 
         fun updateItems()
 
-        fun deleteItems(pk: Int)
+        fun deleteItems(pk: Int, context: Context)
 
     }
 }

@@ -25,11 +25,7 @@ class MissingPresenter : MissingContract.Presenter {
         missingView = null
     }
 
-    override fun loadItems(
-        adapter: MissingAdapter,
-        list: ArrayList<MissingModel>,
-        context: Context
-    ) {  // 글 전체 불러오기
+    override fun loadItems(adapter: MissingAdapter, list: ArrayList<MissingModel>, context: Context) {  // 글 전체 불러오기
 //        val client: OkHttpClient = OkHttpClient()
         val client: OkHttpClient = RetrofitClient.getClient(context, "")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)
@@ -114,16 +110,20 @@ class MissingPresenter : MissingContract.Presenter {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun deleteItems(pk: Int) {     // 글 삭제하기
-        val client: OkHttpClient = OkHttpClient()
+    override fun deleteItems(pk: Int, context: Context) {     // 글 삭제하기
+        Log.e("missing DELETE", "삭제")
+//        val client: OkHttpClient = OkHttpClient()
+        val client: OkHttpClient = RetrofitClient.getClient(context, "")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)
 
         val request: Call<ResponseBody> = retrofitInterface.deleteMissingData(pk)
         request.enqueue(object : Callback<ResponseBody> {
-
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                Log.e("Success(글 삭제)", "")
-                missingView!!.refresh()
+                if (response.isSuccessful){
+                    Log.e("Success(글 삭제)", "")
+                    missingView!!.refresh()
+                } else {
+                }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {

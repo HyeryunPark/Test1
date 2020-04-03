@@ -79,7 +79,7 @@ interface RetrofitInterface {
     fun updateMissingData(@Path("pk") pk: Int): Call<MissingModel>
 
     // 실종동물 글 삭제하기
-    @DELETE("/missings/{pk}")
+    @DELETE("/missings/{pk}/")
     fun deleteMissingData(@Path("pk") pk: Int): Call<ResponseBody>
 
 
