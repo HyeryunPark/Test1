@@ -21,9 +21,12 @@ import retrofit2.Call
 import java.util.*
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 
 
 class MissingReportActivity : AppCompatActivity() {
+
+    var modifyId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -245,6 +248,9 @@ class MissingReportActivity : AppCompatActivity() {
             if (missing_info_detail_location.text.isEmpty() && missing_info_phone.text.isEmpty() && missing_info_pattern.text.isEmpty() && missing_info_feature.text.isEmpty() && missing_info_etc.text.isEmpty()) {
                 Toast.makeText(this, "비어있는 칸을 채워주세요", Toast.LENGTH_SHORT).show()
             } else {
+                if (modifyId != -1) {
+                    intent.putExtra("id", modifyId)
+                }
                 intent.putExtra("status", missing_info_status.text.toString())
                 intent.putExtra("date", missing_info_date.text.toString())
                 intent.putExtra("city", missing_info_city.text.toString())
@@ -269,8 +275,19 @@ class MissingReportActivity : AppCompatActivity() {
     private fun setData(){  // 수정시 저장되어있던 데이터들을 빈칸에 입력해주는 코드
         if (intent.hasExtra("status")) {
             actionBar?.title = "실종/보호 신고 수정"
+            modifyId = intent.getIntExtra("id", -1)
+            Log.e("주제수정 id", modifyId.toString())
             missing_info_status.text = intent.getStringExtra("status")
-            missing_info_date.text = intent.getStringExtra("date")
+
+            // datetime 에서 date 만 뽑아와서 출력
+            val outputFormat = SimpleDateFormat("yyyy-MM-dd")
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.S")
+
+            val inputText = intent.getStringExtra("date")
+            val date = inputFormat.parse(inputText)
+            val outputText = outputFormat.format(date)
+            missing_info_date.text = outputText
+
             missing_info_city.text = intent.getStringExtra("city")
             missing_info_district.text = intent.getStringExtra("district")
             missing_info_detail_location.setText(intent.getStringExtra("detail_location"))

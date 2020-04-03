@@ -102,17 +102,25 @@ class MissingPresenter : MissingContract.Presenter {
         })
     }
 
-    override fun updateItems(pk: Int, context: Context) {    // 글 수정하기
+    override fun updateItems(
+        pk: Int,
+        missingModel: MissingModel,
+        context: Context,
+        adapter: MissingAdapter,
+        list: ArrayList<MissingModel>
+    ) {    // 글 수정하기
         Log.e("missing UPDATE", "$pk")
         val client: OkHttpClient = RetrofitClient.getClient(context, "")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)
 
-        val request: Call<MissingModel> = retrofitInterface.updateMissingData(pk)
+        val request: Call<MissingModel> = retrofitInterface.updateMissingData(pk, missingModel)
         request.enqueue(object : Callback<MissingModel> {
             override fun onResponse(call: Call<MissingModel>, response: Response<MissingModel>) {
                 if (response.isSuccessful) {
                     Log.e("Success(글 수정)", "")
-
+                    list.clear()
+                    loadItems(adapter, list, context)
+                    missingView!!.refresh()
                 }
             }
 

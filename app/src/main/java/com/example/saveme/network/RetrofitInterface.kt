@@ -75,8 +75,8 @@ interface RetrofitInterface {
     ): Call<MissingModel>*/
 
     // 실동종물 글 수정
-    @PUT("/missings/{pk}")
-    fun updateMissingData(@Path("pk") pk: Int): Call<MissingModel>
+    @PUT("/missings/{pk}/")
+    fun updateMissingData(@Path("pk") pk: Int, @Body missingModel: MissingModel): Call<MissingModel>
 
     // 실종동물 글 삭제하기
     @DELETE("/missings/{pk}/")

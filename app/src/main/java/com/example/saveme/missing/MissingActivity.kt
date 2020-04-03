@@ -85,7 +85,31 @@ class MissingActivity : BaseActivity(), MissingContract.View {
                 }
             }
             102 -> {    // 글 수정하고 돌아왔을 때
+                when (resultCode) {
+                    Activity.RESULT_OK -> if (data != null) {
+                        Log.e("수정화면에서 돌아왔을때 id", data.getIntExtra("id", -1).toString())
 
+                        val missingModel: MissingModel = MissingModel(
+                            data.getIntExtra("id", -1),
+                            data.getStringExtra("status"),
+                            data.getStringExtra("date"),
+                            data.getStringExtra("city"),
+                            data.getStringExtra("district"),
+                            data.getStringExtra("detail_location"),
+                            data.getStringExtra("phone"),
+                            data.getStringExtra("species"),
+                            data.getStringExtra("breed"),
+                            data.getStringExtra("gender"),
+                            data.getBooleanExtra("neuter", false),
+                            data.getStringExtra("age"),
+                            data.getStringExtra("weight"),
+                            data.getStringExtra("pattern"),
+                            data.getStringExtra("feature"),
+                            data.getStringExtra("etc"))
+
+                        missingPresenter.updateItems(data.getIntExtra("id", -1), missingModel, this, missingAdapter, missingList)
+                    }
+                }
             }
 
         }
