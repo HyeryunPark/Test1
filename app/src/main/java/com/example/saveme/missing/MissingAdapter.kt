@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.saveme.R
+import com.example.saveme.missing.createmissing.MissingReportActivity
 import com.example.saveme.missing.missingdetail.MissingDetailActivity
 import kotlinx.android.synthetic.main.item_missing.view.*
 import java.text.SimpleDateFormat
@@ -94,14 +95,34 @@ class MissingAdapter(
             val items = arrayOf<CharSequence>("수정하기", "삭제하기")
             val builder: AlertDialog.Builder = AlertDialog.Builder(context)
             builder.setItems(items, DialogInterface.OnClickListener { dialog, item ->
-                if (items[item] == items[0]) {  // 수정하기
-                     Log.e("missingList.id", missingList[position].id.toString())
 
+                if (items[item] == items[0]) {  // 수정하기
+                    Log.e("missingList.id", missingList[position].id.toString())
+                    presenterMissing.modifyActivity(
+                        missingList[position].id,
+                        MissingModel(
+                            missingList[position].id,
+                            missingList[position].status,
+                            missingList[position].date,
+                            missingList[position].city,
+                            missingList[position].district,
+                            missingList[position].detailLocation,
+                            missingList[position].phone,
+                            missingList[position].species,
+                            missingList[position].breed,
+                            missingList[position].gender,
+                            missingList[position].neuter,
+                            missingList[position].age,
+                            missingList[position].weight,
+                            missingList[position].pattern,
+                            missingList[position].feature,
+                            missingList[position].etc
+                        )
+                    )
+                    dialog!!.dismiss()
                 } else if (items[item] == items[1]) {    // 삭제하기
-                    if (missingList != null) {
-                        presenterMissing.deleteItems(missingList[position].id, context)
-                        removeAt(position)
-                    }
+                    presenterMissing.deleteItems(missingList[position].id, context)
+                    removeAt(position)
                     dialog!!.dismiss()
                 }
             })
