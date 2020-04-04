@@ -41,10 +41,6 @@ class MainActivity : AppCompatActivity() {
             var intent_community = Intent(this, CommunityActivity::class.java)
             startActivity(intent_community)
         }
-        // 삭제예정 (레트로핏연습
-        iv_test.setOnClickListener {
-            var intent = Intent(this, TestActivity::class.java)
-            startActivity(intent)
-        }
+
     }
 }
