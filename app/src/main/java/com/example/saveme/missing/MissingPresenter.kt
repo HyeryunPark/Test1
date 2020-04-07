@@ -57,7 +57,10 @@ class MissingPresenter : MissingContract.Presenter {
                                 missingList.weight,
                                 missingList.pattern,
                                 missingList.feature,
-                                missingList.etc
+                                missingList.etc,
+                                missingList.image1,
+                                missingList.image2,
+                                missingList.image3
                             )
                             Log.e("들어오니?", "missingList.id : " + missingList.id)
                             adapter.addItem(addData)
@@ -76,12 +79,33 @@ class MissingPresenter : MissingContract.Presenter {
     }
 
 
-    override fun addItems(status: String, date: String, city: String, district: String, detailLocation: String, phone: String, species: String, breed: String, gender: String, neuter: Boolean, age: String, weight: String, pattern: String, feature: String, etc: String,
-                          context: Context, adapter: MissingAdapter, list: ArrayList<MissingModel>) {   // 글 작성하기
+    override fun addItems(
+        status: String,
+        date: String,
+        city: String,
+        district: String,
+        detailLocation: String,
+        phone: String,
+        species: String,
+        breed: String,
+        gender: String,
+        neuter: Boolean,
+        age: String,
+        weight: String,
+        pattern: String,
+        feature: String,
+        etc: String,
+        image1: String,
+        image2: String,
+        image3: String,
+        context: Context,
+        adapter: MissingAdapter,
+        list: ArrayList<MissingModel>
+    ) {   // 글 작성하기
         val client: OkHttpClient = RetrofitClient.getClient(context, "")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)
 
-        val createMissing: CreateMissing = CreateMissing(status, date, city, district, detailLocation, phone, species, breed, gender, neuter, age, weight, pattern, feature, etc)
+        val createMissing: CreateMissing = CreateMissing(status, date, city, district, detailLocation, phone, species, breed, gender, neuter, age, weight, pattern, feature, etc, image1, image2, image3)
         val request: Call<CreateMissing> = retrofitInterface.createMissingData(createMissing)
         request.enqueue(object : Callback<CreateMissing> {
             override fun onResponse(call: Call<CreateMissing>, response: Response<CreateMissing>) {

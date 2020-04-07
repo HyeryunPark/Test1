@@ -35,4 +35,10 @@ class GetMissingList {
     val feature = ""
     @SerializedName("etc")
     val etc = ""
+    @SerializedName("image1")
+    val image1 = ""
+    @SerializedName("image2")
+    val image2 = ""
+    @SerializedName("image3")
+    val image3 = ""
 }

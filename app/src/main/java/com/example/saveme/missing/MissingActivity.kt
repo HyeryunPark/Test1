@@ -76,6 +76,9 @@ class MissingActivity : BaseActivity(), MissingContract.View {
                             data.getStringExtra("pattern"),
                             data.getStringExtra("feature"),
                             data.getStringExtra("etc"),
+                            data.getStringExtra("image1"),
+                            data.getStringExtra("image2"),
+                            data.getStringExtra("image3"),
                             this,
                             missingAdapter,
                             missingList
@@ -105,7 +108,10 @@ class MissingActivity : BaseActivity(), MissingContract.View {
                             data.getStringExtra("weight"),
                             data.getStringExtra("pattern"),
                             data.getStringExtra("feature"),
-                            data.getStringExtra("etc"))
+                            data.getStringExtra("etc"),
+                            data.getStringExtra("image1"),
+                            data.getStringExtra("image2"),
+                            data.getStringExtra("image3"))
 
                         missingPresenter.updateItems(data.getIntExtra("id", -1), missingModel, this, missingAdapter, missingList)
                     }
@@ -142,6 +148,9 @@ class MissingActivity : BaseActivity(), MissingContract.View {
         intent.putExtra("pattern", missingModel.pattern)
         intent.putExtra("feature", missingModel.feature)
         intent.putExtra("etc", missingModel.etc)
+        intent.putExtra("image1", missingModel.image1)
+        intent.putExtra("image2", missingModel.image2)
+        intent.putExtra("image3", missingModel.image3)
         startActivityForResult(intent, 102)
     }
 

@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.saveme.R
+import com.example.saveme.base.BaseActivity
 import com.example.saveme.missing.MissingModel
 import com.example.saveme.model.CreateMissing
 import com.example.saveme.network.RetrofitClient
@@ -24,9 +25,14 @@ import retrofit2.Response
 import java.text.SimpleDateFormat
 
 
-class MissingReportActivity : AppCompatActivity() {
+class MissingReportActivity : BaseActivity(), MissingReportContract.View {
 
+    private lateinit var missingReportPresenter: MissingReportPresenter
     var modifyId = -1
+    var photo1: String? = null
+    var photo2: String? = null
+    var photo3: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -241,6 +247,10 @@ class MissingReportActivity : AppCompatActivity() {
 
     }
 
+    override fun initPresenter() {
+        missingReportPresenter = MissingReportPresenter()
+    }
+
     private fun pressedRegistrationBtn() {
         btn_missing_report_registration.setOnClickListener {
 
@@ -266,13 +276,16 @@ class MissingReportActivity : AppCompatActivity() {
                 intent.putExtra("pattern", missing_info_pattern.text.toString())
                 intent.putExtra("feature", missing_info_feature.text.toString())
                 intent.putExtra("etc", missing_info_etc.text.toString())
+                intent.putExtra("image1", photo1.toString())
+                intent.putExtra("image2", photo2.toString())
+                intent.putExtra("image3", photo3.toString())
                 setResult(Activity.RESULT_OK, intent)
                 finish()
             }
         }
     }
 
-    private fun setData(){  // 수정시 저장되어있던 데이터들을 빈칸에 입력해주는 코드
+    override fun setData(){  // 수정시 저장되어있던 데이터들을 빈칸에 입력해주는 코드
         if (intent.hasExtra("status")) {
             actionBar?.title = "실종/보호 신고 수정"
             modifyId = intent.getIntExtra("id", -1)
@@ -307,6 +320,14 @@ class MissingReportActivity : AppCompatActivity() {
             missing_info_feature.setText(intent.getStringExtra("feature"))
             missing_info_etc.setText(intent.getStringExtra("etc"))
         }
+    }
+
+    override fun showError(error: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showToastMessage(msg: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }

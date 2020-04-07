@@ -87,6 +87,9 @@ class MissingAdapter(
             intent.putExtra("detail_location", missingList[position].detailLocation)
             intent.putExtra("city", missingList[position].city)
             intent.putExtra("district", missingList[position].district)
+            intent.putExtra("image1", missingList[position].image1)
+            intent.putExtra("image2", missingList[position].image2)
+            intent.putExtra("image3", missingList[position].image3)
 
             (context as MissingActivity).startActivity(intent)
         }
@@ -98,9 +101,7 @@ class MissingAdapter(
 
                 if (items[item] == items[0]) {  // 수정하기
                     Log.e("missingList.id", missingList[position].id.toString())
-                    presenterMissing.modifyActivity(
-                        missingList[position].id,
-                        MissingModel(
+                    presenterMissing.modifyActivity(missingList[position].id, MissingModel(
                             missingList[position].id,
                             missingList[position].status,
                             missingList[position].date,
@@ -116,7 +117,10 @@ class MissingAdapter(
                             missingList[position].weight,
                             missingList[position].pattern,
                             missingList[position].feature,
-                            missingList[position].etc
+                            missingList[position].etc,
+                            missingList[position].image1,
+                            missingList[position].image2,
+                            missingList[position].image3
                         )
                     )
                     dialog!!.dismiss()
