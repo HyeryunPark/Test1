@@ -17,6 +17,6 @@ class CreateMissing(
     val feature: String,
     val etc: String,
     val image1: String,
-    val image2: String,
-    val image3: String
+    val image2: String?,
+    val image3: String?
 )

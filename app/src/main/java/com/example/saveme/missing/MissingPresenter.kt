@@ -96,8 +96,8 @@ class MissingPresenter : MissingContract.Presenter {
         feature: String,
         etc: String,
         image1: String,
-        image2: String,
-        image3: String,
+        image2: String?,
+        image3: String?,
         context: Context,
         adapter: MissingAdapter,
         list: ArrayList<MissingModel>
