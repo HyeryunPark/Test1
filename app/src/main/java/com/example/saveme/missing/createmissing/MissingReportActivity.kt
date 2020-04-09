@@ -347,20 +347,13 @@ class MissingReportActivity : BaseActivity(), MissingReportContract.View {
 
             override fun onPermissionGranted() {
                 // 권한 요청 성공
-                Log.e("TedPermission", "권한 요청 성공")
                 isPermission = true
                 cameraDialog()
             }
 
             override fun onPermissionDenied(deniedPermissions: ArrayList<String>?) {
                 // 권한 요청 실패
-                Log.e("TedPermission", "권한 요청 실패")
                 isPermission = false
-                Toast.makeText(
-                    this@MissingReportActivity,
-                    "이미지 업로드를 위해서는 권한허용이 필요합니다.",
-                    Toast.LENGTH_SHORT
-                )
             }
         }
 
@@ -389,14 +382,16 @@ class MissingReportActivity : BaseActivity(), MissingReportContract.View {
 
         // 카메라 선택
         camera.setOnClickListener {
-            Toast.makeText(this, "카메라", Toast.LENGTH_SHORT).show()
-            cameraClick()
+            if (isPermission) cameraClick()
+            else Toast.makeText(this, R.string.permission_2, Toast.LENGTH_SHORT).show()
+            alertDialog.dismiss()
         }
 
         // 앨범 선택
         album.setOnClickListener {
-            Toast.makeText(this, "앨범", Toast.LENGTH_SHORT).show()
-            albumClick()
+            if (isPermission) albumClick()
+            else Toast.makeText(this, R.string.permission_2, Toast.LENGTH_SHORT).show()
+            alertDialog.dismiss()
         }
 
         // 취소
@@ -435,137 +430,141 @@ class MissingReportActivity : BaseActivity(), MissingReportContract.View {
             finish()
             e.printStackTrace()
         }
+
         if (tempFile != null) {
             /*val photoUri =
-                FileProvider.getUriForFile(this, "com.example.saveme.fileprovider", tempFile)*/
+                FileProvider.getUriForFile(this, "com.example.saveme.provider", tempFile)*/
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                /*
-                안드로이드 누가 하위버전에서는 provider로 uri를 감싸주면 동작하지 않는 경우가 있기 때문에 버전 구분 필요
-                */
-                val photoUri = FileProvider.getUriForFile(
-                    this, "com.example.saveme.provider",
-                    tempFile!!
-                )
-                intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-                startActivityForResult(intentCamera, PICK_FROM_CAMERA)
-            } else {
 
-                val photoUri = Uri.fromFile(tempFile)
-                intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-                startActivityForResult(intentCamera, PICK_FROM_CAMERA)
+                // 안드로이드 누가 하위버전에서는 provider로 uri를 감싸주면 동작하지 않는 경우가 있기 때문에 버전 구분 필요
+
+                if (tempFile != null) {
+
+                }
+                    val photoUri =
+                        FileProvider.getUriForFile(this, "com.example.saveme.provider", tempFile!!)
+                    intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+                    startActivityForResult(intentCamera, PICK_FROM_CAMERA)
+                } else {
+
+                    val photoUri = Uri.fromFile(tempFile)
+                    intentCamera.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+                    startActivityForResult(intentCamera, PICK_FROM_CAMERA)
+                }
             }
         }
-    }
 
-    private fun cropImage(photoUri: Uri) {
-        // 갤러리에서 가져온 사진을 크롭화면을 보낸다
-        // 갤러리에서 선택한 경우에는 tempFile 이 없으므로 새로 생성해준다
-        if (tempFile == null) {
+        private fun cropImage(photoUri: Uri) {
+            Log.e("tempFile : ", tempFile.toString())
+            // 갤러리에서 가져온 사진을 크롭화면을 보낸다
+            // 갤러리에서 선택한 경우에는 tempFile 이 없으므로 새로 생성해준다
+            if (tempFile == null) {
+                try {
+                    tempFile = missingReportPresenter.createImageFile()
+                } catch (e: IOException) {
+                    Toast.makeText(this, "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                    finish()
+                    e.printStackTrace()
+                }
+            }
+
+            // 크롭 후 저장할 Uri
+            val saveUri = Uri.fromFile(tempFile)
+            //  사진촬영은 tempFile 이 만들어져 있으니 넣어서 저장하면 된다.
+            // 하지만 갤러리는 크롭후에 이미지를 저장할 파일이 없기 때문에 위의 코드를 추가로 작성해줘야 한다.
+
+            lastUri = tempFile!!.absolutePath // 최정적으로 저장될 uri
+            Log.e("최종 lastUri", lastUri)
+
+            Crop.of(photoUri, saveUri).asSquare().start(this)
+
+        }
+
+        /*
+            tempFile 을 bitmap 으로 변환 후 ImageView 에 설정한다.
+        */
+        private fun setImage() {
             try {
-                tempFile = missingReportPresenter.createImageFile()
-            } catch (e: IOException) {
-                Toast.makeText(this, "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                val options = BitmapFactory.Options()
+                val originalBm = BitmapFactory.decodeFile(tempFile!!.absolutePath, options)
+                val resizedBitmap =
+                    Bitmap.createScaledBitmap(originalBm, 100, 100, true) // 이미지 사이즈 조정
+                Log.e("setImage", "" + tempFile!!.absolutePath)
+
+                missing_info_photo1.setImageBitmap(resizedBitmap) // 이미지뷰에 조정한 이미지 넣기
+
+                /*
+                tempFile 사용 후 null 처리를 해줘야 한다.
+                (resultCode != RESULT_OK) 일 때 tempFile 을 삭제하기 때문에
+                기존에 데이터가 남아 있게 되면 원치 않은 삭제가 이뤄진다.
+                */
+
+                tempFile = null
+            } catch (e: Exception) {
+                Log.e("REQUEST_CROP", "missing 크롭오류 : $e")
                 finish()
-                e.printStackTrace()
             }
+
         }
 
-        // 크롭 후 저장할 Uri
-        val saveUri = Uri.fromFile(tempFile)
-        //  사진촬영은 tempFile 이 만들어져 있으니 넣어서 저장하면 된다.
-        // 하지만 갤러리는 크롭후에 이미지를 저장할 파일이 없기 때문에 위의 코드를 추가로 작성해줘야 한다.
+        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            super.onActivityResult(requestCode, resultCode, data)
 
-        lastUri = tempFile!!.absolutePath // 최정적으로 저장될 uri
-        Log.e("최종 lastUri", lastUri)
+            if (resultCode != Activity.RESULT_OK) {
+                Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_SHORT).show()
 
-        Crop.of(photoUri, saveUri).asSquare().start(this)
-
-    }
-
-    /*
-        tempFile 을 bitmap 으로 변환 후 ImageView 에 설정한다.
-    */
-    private fun setImage() {
-        try {
-            val options = BitmapFactory.Options()
-            val originalBm = BitmapFactory.decodeFile(tempFile!!.absolutePath, options)
-            val resizedBitmap = Bitmap.createScaledBitmap(originalBm, 70, 70, true) // 이미지 사이즈 조정
-            Log.e("setImage", "" + tempFile!!.absolutePath)
-
-            missing_info_photo1.setImageBitmap(resizedBitmap) // 이미지뷰에 조정한 이미지 넣기
-
-            /*
-            tempFile 사용 후 null 처리를 해줘야 한다.
-            (resultCode != RESULT_OK) 일 때 tempFile 을 삭제하기 때문에
-            기존에 데이터가 남아 있게 되면 원치 않은 삭제가 이뤄진다.
-            */
-
-            tempFile = null
-        } catch (e: Exception) {
-            Log.e("REQUEST_CROP", "missing 크롭오류")
-            finish()
-        }
-
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode != Activity.RESULT_OK) {
-            Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_SHORT).show()
-
-            if (tempFile != null) {
-                if (tempFile!!.exists()) {
-                    if (tempFile!!.delete()) {
-                        Log.e("이미지 등록 취소", tempFile!!.absolutePath + " 삭제 성공")
-                        tempFile = null
+                if (tempFile != null) {
+                    if (tempFile!!.exists()) {
+                        if (tempFile!!.delete()) {
+                            Log.e("이미지 등록 취소", tempFile!!.absolutePath + " 삭제 성공")
+                            tempFile = null
+                        }
                     }
                 }
             }
-        }
 
-        when (requestCode) {
-            PICK_FROM_ALBUM -> {   // 앨범에서 온 경우
-                Log.e("PICK_FROM_ALBUM", "앨범선택후")
-                val photoUri = data!!.data
+            when (requestCode) {
+                PICK_FROM_ALBUM -> {   // 앨범에서 온 경우
+                    Log.e("PICK_FROM_ALBUM", "앨범선택후")
+                    val photoUri = data!!.data
 
-                if (photoUri != null) {
-                    cropImage(photoUri)
+                    if (photoUri != null) {
+                        cropImage(photoUri)
+                    }
+
+                    setImage()
                 }
+                PICK_FROM_CAMERA -> {  // 카메라에서 온 경우
+                    Log.e("PICK_FROM_CAMERA", "카메라 선택후")
+                    val bitmap =
+                        MediaStore.Images.Media.getBitmap(contentResolver, Uri.fromFile(tempFile))
+                    val ei = ExifInterface(tempFile?.absolutePath)
+                    val orientation = ei.getAttributeInt(
+                        ExifInterface.TAG_ORIENTATION,
+                        ExifInterface.ORIENTATION_UNDEFINED
+                    )
+                    val rotatedBitmap = missingReportPresenter.rotateImage(bitmap, 90.toFloat())
+                    //            storeImage(rotatedBitmap!!)
 
-                setImage()
+                    setImage()
+                }
+                Crop.REQUEST_CROP -> {
+                    setImage()
+                }
             }
-            PICK_FROM_CAMERA -> {  // 카메라에서 온 경우
-                Log.e("PICK_FROM_CAMERA", "카메라 선택후")
-                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, Uri.fromFile(tempFile))
-                val ei = ExifInterface(tempFile?.absolutePath)
-                val orientation = ei.getAttributeInt(
-                    ExifInterface.TAG_ORIENTATION,
-                    ExifInterface.ORIENTATION_UNDEFINED
-                )
-                val rotatedBitmap = missingReportPresenter.rotateImage(bitmap, 90.toFloat())
-    //            storeImage(rotatedBitmap!!)
 
-                setImage()
-            }
-            Crop.REQUEST_CROP -> {
 
-                setImage()
-            }
+        }
+
+
+        override fun showError(error: String) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun showToastMessage(msg: String) {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
 
     }
-
-
-    override fun showError(error: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showToastMessage(msg: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-
-}
