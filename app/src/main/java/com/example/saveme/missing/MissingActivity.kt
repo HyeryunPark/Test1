@@ -10,6 +10,7 @@ import com.example.saveme.R
 import com.example.saveme.base.BaseActivity
 import com.example.saveme.missing.createmissing.MissingReportActivity
 import com.example.saveme.missing.missingdetail.MissingDetailActivity
+import com.example.saveme.model.CreateMissing
 import com.example.saveme.network.RetrofitClient
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_missing.*
@@ -60,7 +61,8 @@ class MissingActivity : BaseActivity(), MissingContract.View {
             101 -> {    // 글 작성하고 돌아왔을 때
                 when (resultCode) {
                     Activity.RESULT_OK -> if (data != null) {
-                        missingPresenter.addItems(
+
+                        val createMissing: CreateMissing = CreateMissing(
                             data.getStringExtra("status"),
                             data.getStringExtra("date"),
                             data.getStringExtra("city"),
@@ -78,10 +80,10 @@ class MissingActivity : BaseActivity(), MissingContract.View {
                             data.getStringExtra("etc"),
                             data.getStringExtra("image1"),
                             data.getStringExtra("image2"),
-                            data.getStringExtra("image3"),
-                            this,
-                            missingAdapter,
-                            missingList
+                            data.getStringExtra("image3")
+                        )
+
+                        missingPresenter.addItems(createMissing, this, missingAdapter, missingList
                         )
 
                     }
@@ -111,9 +113,16 @@ class MissingActivity : BaseActivity(), MissingContract.View {
                             data.getStringExtra("etc"),
                             data.getStringExtra("image1"),
                             data.getStringExtra("image2"),
-                            data.getStringExtra("image3"))
+                            data.getStringExtra("image3")
+                        )
 
-                        missingPresenter.updateItems(data.getIntExtra("id", -1), missingModel, this, missingAdapter, missingList)
+                        missingPresenter.updateItems(
+                            data.getIntExtra("id", -1),
+                            missingModel,
+                            this,
+                            missingAdapter,
+                            missingList
+                        )
                     }
                 }
             }

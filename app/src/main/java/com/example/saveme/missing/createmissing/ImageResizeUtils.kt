@@ -18,12 +18,7 @@ object ImageResizeUtils {
      * @param newWidth
      * @param isCamera
      */
-    fun resizeFile(
-        file: File,
-        newFile: File?,
-        newWidth: Int,
-        isCamera: Boolean
-    ) {
+    fun resizeFile(file: File, newFile: File?, newWidth: Int, isCamera: Boolean) {
         val TAG = "ImageResizeUtils"
         var originalBm: Bitmap? = null
         var resizedBitmap: Bitmap? = null

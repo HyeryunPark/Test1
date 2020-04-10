@@ -494,15 +494,14 @@ class MissingReportActivity : BaseActivity(), MissingReportContract.View {
     */
     private fun setImage() {
         try {
-            ImageResizeUtils.resizeFile(tempFile!!, tempFile, 1280, isCamera)
+//            ImageResizeUtils.resizeFile(tempFile!!, tempFile, 1280, isCamera)
 
             val options = BitmapFactory.Options()
             val originalBm = BitmapFactory.decodeFile(tempFile!!.absolutePath, options)
-//                val resizedBitmap =
-//                    Bitmap.createScaledBitmap(originalBm, 100, 100, true) // 이미지 사이즈 조정
+            val resizedBitmap = Bitmap.createScaledBitmap(originalBm, 100, 100, true) // 이미지 사이즈 조정
             Log.e("setImage", "" + tempFile!!.absolutePath)
 
-            missing_info_photo1.setImageBitmap(originalBm)
+            missing_info_photo1.setImageBitmap(resizedBitmap)
 
             /*
             tempFile 사용 후 null 처리를 해줘야 한다.
@@ -541,10 +540,9 @@ class MissingReportActivity : BaseActivity(), MissingReportContract.View {
 
                 if (photoUri != null) {
                     cropImage(photoUri)
-
                 }
 
-                setImage()
+//                setImage()
             }
             PICK_FROM_CAMERA -> {  // 카메라에서 온 경우
                 Log.e("PICK_FROM_CAMERA", "카메라 선택후")
@@ -575,7 +573,7 @@ class MissingReportActivity : BaseActivity(), MissingReportContract.View {
                     Log.e("PICK_FROM_CAMERA", "카메라오류")
                 }
 
-                setImage()
+//                setImage()
             }
             Crop.REQUEST_CROP -> {
                 setImage()

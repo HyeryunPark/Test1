@@ -5,6 +5,8 @@ import com.example.saveme.model.CreateMissing
 import com.example.saveme.model.GetMissingList
 import com.example.saveme.model.ShelterModel
 import com.google.gson.JsonObject
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -12,8 +14,6 @@ import retrofit2.http.*
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.DELETE
-
-
 
 
 interface RetrofitInterface {
@@ -52,27 +52,30 @@ interface RetrofitInterface {
     fun getMissingData(): Call<List<GetMissingList>>
 
     // 실종동물 글 작성
+    /*@POST("/missings/")
+    fun createMissingData(@Body createMissingData: CreateMissing): Call<CreateMissing>*/
+    @Multipart
     @POST("/missings/")
-    fun createMissingData(@Body createMissingData: CreateMissing): Call<CreateMissing>
-/*    @FormUrlEncoded
-    @POST("/missings")
     fun createMissingData(
-        @Field("status") status: String,
-        @Field("date") date: String,
-        @Field("city") city: String,
-        @Field("district") district: String,
-        @Field("detailLocation") detailLocation: String,
-        @Field("phone") phone: String,
-        @Field("species") species: String,
-        @Field("breed") breed: String,
-        @Field("gender") gender: String,
-        @Field("neuter") neuter: String,
-        @Field("age") age: String,
-        @Field("weight") weight: String,
-        @Field("pattern") pattern: String,
-        @Field("feature") feature: String,
-        @Field("etc") etc: String
-    ): Call<MissingModel>*/
+        @Part("status") status: RequestBody,
+        @Part("date") date: RequestBody,
+        @Part("city") city: RequestBody,
+        @Part("district") district: RequestBody,
+        @Part("detailLocation") detailLocation: RequestBody,
+        @Part("phone") phone: RequestBody,
+        @Part("species") species: RequestBody,
+        @Part("breed") breed: RequestBody,
+        @Part("gender") gender: RequestBody,
+        @Part("neuter") neuter: Boolean,
+        @Part("age") age: RequestBody,
+        @Part("weight") weight: RequestBody,
+        @Part("pattern") pattern: RequestBody,
+        @Part("feature") feature: RequestBody,
+        @Part("etc") etc: RequestBody,
+        @Part image1: MultipartBody.Part,
+        @Part image2: MultipartBody.Part?,
+        @Part image3: MultipartBody.Part?
+    ): Call<CreateMissing>
 
     // 실동종물 글 수정
     @PUT("/missings/{pk}/")
@@ -81,22 +84,6 @@ interface RetrofitInterface {
     // 실종동물 글 삭제하기
     @DELETE("/missings/{pk}/")
     fun deleteMissingData(@Path("pk") pk: Int): Call<ResponseBody>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @FormUrlEncoded

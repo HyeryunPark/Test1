@@ -36,9 +36,9 @@ class GetMissingList {
     @SerializedName("etc")
     val etc = ""
     @SerializedName("image1")
-    val image1 = ""
+    val image1: String = ""
     @SerializedName("image2")
-    val image2 = ""
+    val image2: String? = ""
     @SerializedName("image3")
-    val image3 = ""
+    val image3: String? = ""
 }
