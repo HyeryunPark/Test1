@@ -6,11 +6,11 @@ import com.example.saveme.model.CreateMissing
 import com.example.saveme.model.GetMissingList
 import com.example.saveme.network.RetrofitClient
 import com.google.gson.Gson
-import okhttp3.OkHttpClient
-import okhttp3.ResponseBody
+import okhttp3.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 class MissingPresenter : MissingContract.Presenter {
 
@@ -25,7 +25,11 @@ class MissingPresenter : MissingContract.Presenter {
         missingView = null
     }
 
-    override fun loadItems(adapter: MissingAdapter, list: ArrayList<MissingModel>, context: Context) {  // 글 전체 불러오기
+    override fun loadItems(
+        adapter: MissingAdapter,
+        list: ArrayList<MissingModel>,
+        context: Context
+    ) {  // 글 전체 불러오기
 //        val client: OkHttpClient = OkHttpClient()
         val client: OkHttpClient = RetrofitClient.getClient(context, "")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)
@@ -41,6 +45,7 @@ class MissingPresenter : MissingContract.Presenter {
                         for (i in 0 until body.size) {
                             var missingList: GetMissingList = GetMissingList()
                             missingList = body[i]
+                            
                             var addData: MissingModel = MissingModel(
                                 missingList.id,
                                 missingList.status,
@@ -57,7 +62,10 @@ class MissingPresenter : MissingContract.Presenter {
                                 missingList.weight,
                                 missingList.pattern,
                                 missingList.feature,
-                                missingList.etc
+                                missingList.etc,
+                                missingList.image1,
+                                missingList.image2,
+                                missingList.image3
                             )
                             Log.e("들어오니?", "missingList.id : " + missingList.id)
                             adapter.addItem(addData)
@@ -76,14 +84,105 @@ class MissingPresenter : MissingContract.Presenter {
     }
 
 
-    override fun addItems(status: String, date: String, city: String, district: String, detailLocation: String, phone: String, species: String, breed: String, gender: String, neuter: Boolean, age: String, weight: String, pattern: String, feature: String, etc: String,
-                          context: Context, adapter: MissingAdapter, list: ArrayList<MissingModel>) {   // 글 작성하기
+    override fun addItems(
+        createMissing: CreateMissing,
+        context: Context,
+        adapter: MissingAdapter,
+        list: ArrayList<MissingModel>
+    ) {   // 글 작성하기
         val client: OkHttpClient = RetrofitClient.getClient(context, "")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)
 
-        val createMissing: CreateMissing = CreateMissing(status, date, city, district, detailLocation, phone, species, breed, gender, neuter, age, weight, pattern, feature, etc)
-        val request: Call<CreateMissing> = retrofitInterface.createMissingData(createMissing)
-        request.enqueue(object : Callback<CreateMissing> {
+//        val createMissing: CreateMissing = CreateMissing(status, date, city, district, detailLocation, phone, species, breed, gender, neuter, age, weight, pattern, feature, etc, image1, image2, image3)
+//        val request: Call<CreateMissing> = retrofitInterface.createMissingData(status, date, city, district, detailLocation, phone, species, breed, gender, neuter, age, weight, pattern, feature, etc, image1, image2, image3)
+        lateinit var register_request: Call<CreateMissing>
+
+        var multiPartBody2: MultipartBody.Part? = null
+        var multiPartBody3: MultipartBody.Part? = null
+
+        val image_file1 = File(createMissing.image1)
+        val requestBody1 = RequestBody.create(MediaType.parse("multipart/data"), image_file1)
+        val multipartBody1 =
+            MultipartBody.Part.createFormData("image1", image_file1.name, requestBody1)
+        if (!createMissing.image2.equals("null") && createMissing.image3.equals("null")) {
+            val image_file2 = File(createMissing.image2)
+            val requestBody2 = RequestBody.create(MediaType.parse("multipart/data"), image_file2)
+            multiPartBody2 =
+                MultipartBody.Part.createFormData("image2", image_file2.name, requestBody2)
+
+            register_request = retrofitInterface.createMissingData(
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.status),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.date),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.city),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.district),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.detailLocation),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.phone),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.species),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.breed),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.gender),
+                createMissing.neuter,
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.age),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.weight),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.pattern),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.feature),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.etc),
+                multipartBody1, multiPartBody2, null
+            )
+        }
+        if (!createMissing.image2.equals("null") && createMissing.image3.equals("null")) {
+            val image_file2 = File(createMissing.image2)
+            val requestBody2 = RequestBody.create(MediaType.parse("multipart/data"), image_file2)
+            multiPartBody2 =
+                MultipartBody.Part.createFormData("image2", image_file2.name, requestBody2)
+
+            val image_file3 = File(createMissing.image3)
+            val requestBody3 = RequestBody.create(MediaType.parse("multipart/data"), image_file3)
+            multiPartBody3 =
+                MultipartBody.Part.createFormData("image3", image_file3.name, requestBody3)
+
+            register_request = retrofitInterface.createMissingData(
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.status),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.date),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.city),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.district),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.detailLocation),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.phone),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.species),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.breed),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.gender),
+                createMissing.neuter,
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.age),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.weight),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.pattern),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.feature),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.etc),
+                multipartBody1, multiPartBody2, multiPartBody3
+            )
+        }
+        if (createMissing.image2.equals("null") && createMissing.image3.equals("null")) {
+
+            register_request = retrofitInterface.createMissingData(
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.status),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.date),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.city),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.district),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.detailLocation),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.phone),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.species),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.breed),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.gender),
+                createMissing.neuter,
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.age),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.weight),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.pattern),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.feature),
+                RequestBody.create(MediaType.parse("multipart/data"), createMissing.etc),
+                multipartBody1, null, null
+            )
+        }
+
+
+        register_request.enqueue(object : Callback<CreateMissing> {
             override fun onResponse(call: Call<CreateMissing>, response: Response<CreateMissing>) {
                 if (response.isSuccessful) {
                     Log.e("Success(글 추가)", "")

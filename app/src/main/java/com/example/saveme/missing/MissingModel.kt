@@ -16,6 +16,9 @@ class MissingModel(
     val weight: String,
     val pattern: String,
     val feature: String,
-    val etc: String
+    val etc: String,
+    val image1: String,
+    val image2: String?,
+    val image3: String?
 )
 

@@ -7,8 +7,11 @@ import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.saveme.R
 import com.example.saveme.missing.createmissing.MissingReportActivity
 import com.example.saveme.missing.missingdetail.MissingDetailActivity
@@ -19,7 +22,7 @@ import java.text.SimpleDateFormat
 class MissingAdapter(
     val context: Context,
     private val missingList: ArrayList<MissingModel>,
-    val presenterMissing: MissingPresenter
+    private val presenterMissing: MissingPresenter
 ) :
     RecyclerView.Adapter<MissingAdapter.MissingViewHolder>() {
 
@@ -45,6 +48,10 @@ class MissingAdapter(
 
         missingList[position].let { item ->
             with(holder) {
+
+                val tvMissingImage = itemView.findViewById<ImageView>(R.id.tv_missing_image)
+                Glide.with(context as MissingActivity).load(item.image1).into(tvMissingImage)
+
                 tvMissingSpecies.text = "[" + item.species + "]"
                 tvMissingBreed.text = item.breed
                 tvMissingGender.text = item.gender
@@ -67,6 +74,8 @@ class MissingAdapter(
                 tvMissingDate.text = outputText
 
                 tvMissingLocation.text = item.detailLocation
+
+
             }
         }
 
@@ -87,6 +96,9 @@ class MissingAdapter(
             intent.putExtra("detail_location", missingList[position].detailLocation)
             intent.putExtra("city", missingList[position].city)
             intent.putExtra("district", missingList[position].district)
+            intent.putExtra("image1", missingList[position].image1)
+            intent.putExtra("image2", missingList[position].image2)
+            intent.putExtra("image3", missingList[position].image3)
 
             (context as MissingActivity).startActivity(intent)
         }
@@ -99,8 +111,7 @@ class MissingAdapter(
                 if (items[item] == items[0]) {  // 수정하기
                     Log.e("missingList.id", missingList[position].id.toString())
                     presenterMissing.modifyActivity(
-                        missingList[position].id,
-                        MissingModel(
+                        missingList[position].id, MissingModel(
                             missingList[position].id,
                             missingList[position].status,
                             missingList[position].date,
@@ -116,7 +127,10 @@ class MissingAdapter(
                             missingList[position].weight,
                             missingList[position].pattern,
                             missingList[position].feature,
-                            missingList[position].etc
+                            missingList[position].etc,
+                            missingList[position].image1,
+                            missingList[position].image2,
+                            missingList[position].image3
                         )
                     )
                     dialog!!.dismiss()
@@ -142,13 +156,14 @@ class MissingAdapter(
                 false
             )
         ) {
-        val tvMissingSpecies = itemView.tv_missing_species
-        val tvMissingBreed = itemView.tv_missing_breed
-        val tvMissingGender = itemView.tv_missing_gender
-        val tvMissingAge = itemView.tv_missing_age
-        val tvMissingWeight = itemView.tv_missing_weight
-        val tvMissingPattern = itemView.tv_missing_pattern
-        val tvMissingDate = itemView.tv_missing_date
-        val tvMissingLocation = itemView.tv_missing_detail_location
+        val tvMissingImage: ImageView = itemView.tv_missing_image
+        val tvMissingSpecies: TextView = itemView.tv_missing_species
+        val tvMissingBreed: TextView = itemView.tv_missing_breed
+        val tvMissingGender: TextView = itemView.tv_missing_gender
+        val tvMissingAge: TextView = itemView.tv_missing_age
+        val tvMissingWeight: TextView = itemView.tv_missing_weight
+        val tvMissingPattern: TextView = itemView.tv_missing_pattern
+        val tvMissingDate: TextView = itemView.tv_missing_date
+        val tvMissingLocation: TextView = itemView.tv_missing_detail_location
     }
 }
