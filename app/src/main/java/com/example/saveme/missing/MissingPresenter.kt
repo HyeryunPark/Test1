@@ -36,10 +36,7 @@ class MissingPresenter : MissingContract.Presenter {
 
         val request: Call<List<GetMissingList>> = retrofitInterface.getMissingData()
         request.enqueue(object : Callback<List<GetMissingList>> {
-            override fun onResponse(
-                call: Call<List<GetMissingList>>,
-                response: Response<List<GetMissingList>>
-            ) {
+            override fun onResponse(call: Call<List<GetMissingList>>, response: Response<List<GetMissingList>>) {
                 if (response.isSuccessful) {
                     Log.e("Success", Gson().toJson(response.body()))
 

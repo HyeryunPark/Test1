@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.example.saveme.R
 import com.example.saveme.missing.MissingModel
 import com.example.saveme.network.RetrofitClient
@@ -48,17 +49,17 @@ class MissingDetailActivity : AppCompatActivity() {
         val detail_location = detail_intent.getStringExtra("detail_location")
         val city = detail_intent.getStringExtra("city")
         val district = detail_intent.getStringExtra("district")
+        val image1 = detail_intent.getStringExtra("image1")
+        val image2 = detail_intent.getStringExtra("image2")
+        val image3 = detail_intent.getStringExtra("image3")
 
         tv_missing_detail_status.text = status
-        if (status == "실종")
-            tv_missing_detail_status.setBackgroundColor(Color.parseColor("#f77345"))
-        else if (status == "목격")
-            tv_missing_detail_status.setBackgroundColor(Color.parseColor("#e3d21b"))
-        else if (status == "보호")
-            tv_missing_detail_status.setBackgroundColor(Color.parseColor("#66CC00"))
-        else if (status == "완료")
-            tv_missing_detail_status.setBackgroundColor(Color.parseColor("#0033CC"))
-
+        when (status) {
+            "실종" -> tv_missing_detail_status.setBackgroundColor(Color.parseColor("#f77345"))
+            "목격" -> tv_missing_detail_status.setBackgroundColor(Color.parseColor("#e3d21b"))
+            "보호" -> tv_missing_detail_status.setBackgroundColor(Color.parseColor("#66CC00"))
+            "완료" -> tv_missing_detail_status.setBackgroundColor(Color.parseColor("#0033CC"))
+        }
 
         tv_missing_detail_species.text = "[" + species + "]"
         tv_missing_detail_breed.text = breed
@@ -73,7 +74,7 @@ class MissingDetailActivity : AppCompatActivity() {
         if (weight == "모름") {
             tv_missing_detail_weight.text = "/ " + weight
         } else
-            tv_missing_detail_weight.text = "/ " + weight + "kg"
+            tv_missing_detail_weight.text = "/ " + weight
 
         tv_missing_detail_pattern.text = "/ " + pattern
         tv_missing_detail_feature.text = feature
@@ -83,6 +84,8 @@ class MissingDetailActivity : AppCompatActivity() {
         tv_missing_detail_etc.text = etc
         tv_missing_detail_date.text = date
         tv_missing_detail_location.text = city + district + detail_location
+
+        Glide.with(this).load(image1).into(iv_missing_detail_image)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -83,8 +83,7 @@ class MissingActivity : BaseActivity(), MissingContract.View {
                             data.getStringExtra("image3")
                         )
 
-                        missingPresenter.addItems(createMissing, this, missingAdapter, missingList
-                        )
+                        missingPresenter.addItems(createMissing, this, missingAdapter, missingList)
 
                     }
                 }

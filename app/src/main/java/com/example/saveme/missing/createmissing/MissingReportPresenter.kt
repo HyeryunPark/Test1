@@ -36,7 +36,7 @@ class MissingReportPresenter : MissingReportContract.Presenter {
 
         // 빈 파일 생성
         val image = File.createTempFile(imageFileName, ".jpg", storageDir)
-        Log.e("이미지 파일 생성", "createImageFile" + image.absolutePath)
+        Log.e("이미지 파일 생성", "createImageFile : " + image.absolutePath)
 
 
         return image
