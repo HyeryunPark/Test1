@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.saveme.R
-import com.example.saveme.model.ShelterModel
 import kotlinx.android.synthetic.main.activity_shelter.*
 import org.w3c.dom.Document
 import org.w3c.dom.Element
@@ -123,25 +122,26 @@ class ShelterActivity : AppCompatActivity() {
                 val weight = fstElmnt.getElementsByTagName("weight")
 
 
-                var shelterModel: ShelterModel = ShelterModel(
-                    processState.item(0).childNodes.item(0).nodeValue,
-                    filename.item(0).childNodes.item(0).nodeValue,
-                    kindCd.item(0).childNodes.item(0).nodeValue,
-                    happenDt.item(0).childNodes.item(0).nodeValue,
-                    noticeNo.item(0).childNodes.item(0).nodeValue,
-                    happenPlace.item(0).childNodes.item(0).nodeValue,
-                    sexCd.item(0).childNodes.item(0).nodeValue,
-                    neuterYn.item(0).childNodes.item(0).nodeValue,
-                    colorCd.item(0).childNodes.item(0).nodeValue,
-                    age.item(0).childNodes.item(0).nodeValue,
-                    weight.item(0).childNodes.item(0).nodeValue,
-                    desertionNo.item(0).childNodes.item(0).nodeValue,
-                    specialMark.item(0).childNodes.item(0).nodeValue,
-                    careNm.item(0).childNodes.item(0).nodeValue,
-                    chargeNm.item(0).childNodes.item(0).nodeValue,
-                    careTel.item(0).childNodes.item(0).nodeValue,
-                    careAddr.item(0).childNodes.item(0).nodeValue
-                )
+                var shelterModel: ShelterModel =
+                    ShelterModel(
+                        processState.item(0).childNodes.item(0).nodeValue,
+                        filename.item(0).childNodes.item(0).nodeValue,
+                        kindCd.item(0).childNodes.item(0).nodeValue,
+                        happenDt.item(0).childNodes.item(0).nodeValue,
+                        noticeNo.item(0).childNodes.item(0).nodeValue,
+                        happenPlace.item(0).childNodes.item(0).nodeValue,
+                        sexCd.item(0).childNodes.item(0).nodeValue,
+                        neuterYn.item(0).childNodes.item(0).nodeValue,
+                        colorCd.item(0).childNodes.item(0).nodeValue,
+                        age.item(0).childNodes.item(0).nodeValue,
+                        weight.item(0).childNodes.item(0).nodeValue,
+                        desertionNo.item(0).childNodes.item(0).nodeValue,
+                        specialMark.item(0).childNodes.item(0).nodeValue,
+                        careNm.item(0).childNodes.item(0).nodeValue,
+                        chargeNm.item(0).childNodes.item(0).nodeValue,
+                        careTel.item(0).childNodes.item(0).nodeValue,
+                        careAddr.item(0).childNodes.item(0).nodeValue
+                    )
                 xmlList.add(shelterModel)
             }
             Log.e("xml 파싱", "xmlList = $xmlList")

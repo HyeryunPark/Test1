@@ -3,8 +3,7 @@ package com.example.saveme.network
 import com.example.saveme.missing.MissingModel
 import com.example.saveme.model.CreateMissing
 import com.example.saveme.model.GetMissingList
-import com.example.saveme.model.ShelterModel
-import com.google.gson.JsonObject
+import com.example.saveme.model.GetShelterList
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -45,7 +44,7 @@ interface RetrofitInterface {
 
     // 보호소 동물 리스트 받아오기
     @GET("/shelters")
-    fun requestShelterData(): Call<List<ShelterModel>>
+    fun getShelterData(): Call<List<GetShelterList>>
 
     // 실종동물 글 리스트 조회
     @GET("/missings")
@@ -84,6 +83,11 @@ interface RetrofitInterface {
     // 실종동물 글 삭제하기
     @DELETE("/missings/{pk}/")
     fun deleteMissingData(@Path("pk") pk: Int): Call<ResponseBody>
+
+
+
+
+
 
 
     @FormUrlEncoded

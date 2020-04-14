@@ -26,7 +26,7 @@
             android:name=".missing.createmissing.MissingReportActivity"
             android:parentActivityName=".missing.MissingActivity" />
         <activity
-            android:name=".shelter.ShelterDetailActivity"
+            android:name=".shelter.shelterdetail.ShelterDetailActivity"
             android:parentActivityName=".shelter.ShelterActivity" />
         <activity
             android:name=".missing.missingdetail.MissingDetailActivity"
