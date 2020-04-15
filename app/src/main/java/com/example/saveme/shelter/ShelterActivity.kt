@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.saveme.R
+import com.example.saveme.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_shelter.*
 import org.w3c.dom.Document
 import org.w3c.dom.Element
@@ -13,9 +14,11 @@ import org.xml.sax.InputSource
 import java.net.URL
 import javax.xml.parsers.DocumentBuilderFactory
 
-class ShelterActivity : AppCompatActivity() {
+class ShelterActivity : BaseActivity(), ShelterContract.View {
 
-    private lateinit var shelterPresenter : ShelterPresenter
+    private lateinit var shelterPresenter: ShelterPresenter
+    private lateinit var shelterAdapter: ShelterAdapter
+    var shelterList = arrayListOf<ShelterModel>()
     private lateinit var openApiTask: OpenApiTask
 
     // 본인 인증키
@@ -32,7 +35,13 @@ class ShelterActivity : AppCompatActivity() {
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_white_24dp)   // 왼쪽버튼 이미지 설정
         supportActionBar!!.setDisplayShowTitleEnabled(false)    // 기본 타이틀 사용 여부 false
 
+        shelterPresenter.takeView(this)
+
+        shelterAdapter = ShelterAdapter(this, shelterList)
+//        shelterPresenter.getAbandonedPetsParsing(shelterAdapter, shelterList, this)
+
         // Recyclerview
+        rv_shelter.adapter = shelterAdapter
         rv_shelter.layoutManager = LinearLayoutManager(this)
         rv_shelter.setHasFixedSize(true)
         //  아이템이 추가되거나 삭제될 때 리싸이클로뷰의 크기가 변경될 수도 있고, 그렇게 되면 계층 구조의 다른 뷰의 크기가 변경될 가능성이 있다.
@@ -42,6 +51,11 @@ class ShelterActivity : AppCompatActivity() {
         openApiTask.execute()
 
     }
+
+    override fun initPresenter() {
+        shelterPresenter = ShelterPresenter()
+    }
+
 
     private inner class OpenApiTask : AsyncTask<String, Void, Document>() {
 
@@ -167,6 +181,14 @@ class ShelterActivity : AppCompatActivity() {
                 openApiTask.cancel(true)
         } catch (e: Exception) {
         }
+    }
+
+    override fun showError(error: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showToastMessage(msg: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 
