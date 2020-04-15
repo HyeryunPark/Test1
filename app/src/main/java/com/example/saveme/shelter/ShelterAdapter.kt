@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.saveme.R
-import com.example.saveme.model.ShelterModel
+import com.example.saveme.shelter.shelterdetail.ShelterDetailActivity
 import kotlinx.android.synthetic.main.item_shelter.view.*
 
 class ShelterAdapter(val context: Context, private val shelterList: List<ShelterModel>) :

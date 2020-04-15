@@ -1,4 +1,4 @@
-package com.example.saveme.shelter
+package com.example.saveme.shelter.shelterdetail
 
 import android.content.DialogInterface
 import android.content.Intent

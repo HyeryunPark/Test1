@@ -1,4 +1,4 @@
-package com.example.saveme.model
+package com.example.saveme.shelter
 
 data class ShelterModel(
     val status: String,
