@@ -23,7 +23,9 @@ class ShelterAdapter(val context: Context, private val shelterList: List<Shelter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ShelterViewHolder(parent)
 
-    override fun getItemCount(): Int = shelterList.size
+    override fun getItemCount(): Int {
+        return shelterList.size
+    }
 
     override fun onBindViewHolder(holder: ShelterViewHolder, position: Int) {
 

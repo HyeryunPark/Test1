@@ -41,7 +41,7 @@ class ShelterActivity : BaseActivity(), ShelterContract.View {
 //        shelterPresenter.getAbandonedPetsParsing(shelterAdapter, shelterList, this)
 
         // Recyclerview
-        rv_shelter.adapter = shelterAdapter
+//        rv_shelter.adapter = shelterAdapter
         rv_shelter.layoutManager = LinearLayoutManager(this)
         rv_shelter.setHasFixedSize(true)
         //  아이템이 추가되거나 삭제될 때 리싸이클로뷰의 크기가 변경될 수도 있고, 그렇게 되면 계층 구조의 다른 뷰의 크기가 변경될 가능성이 있다.
@@ -66,7 +66,8 @@ class ShelterActivity : BaseActivity(), ShelterContract.View {
 
             try {
                 url =
-                    URL("http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?ServiceKey=$serviceKey")
+                    URL("http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/abandonmentPublic?ServiceKey=$serviceKey&pageNo=1&numOfRows=10")
+
 
                 Log.e("xml 파싱", "1단계")
                 val dbf = DocumentBuilderFactory.newInstance()
@@ -136,26 +137,25 @@ class ShelterActivity : BaseActivity(), ShelterContract.View {
                 val weight = fstElmnt.getElementsByTagName("weight")
 
 
-                var shelterModel: ShelterModel =
-                    ShelterModel(
-                        processState.item(0).childNodes.item(0).nodeValue,
-                        filename.item(0).childNodes.item(0).nodeValue,
-                        kindCd.item(0).childNodes.item(0).nodeValue,
-                        happenDt.item(0).childNodes.item(0).nodeValue,
-                        noticeNo.item(0).childNodes.item(0).nodeValue,
-                        happenPlace.item(0).childNodes.item(0).nodeValue,
-                        sexCd.item(0).childNodes.item(0).nodeValue,
-                        neuterYn.item(0).childNodes.item(0).nodeValue,
-                        colorCd.item(0).childNodes.item(0).nodeValue,
-                        age.item(0).childNodes.item(0).nodeValue,
-                        weight.item(0).childNodes.item(0).nodeValue,
-                        desertionNo.item(0).childNodes.item(0).nodeValue,
-                        specialMark.item(0).childNodes.item(0).nodeValue,
-                        careNm.item(0).childNodes.item(0).nodeValue,
-                        chargeNm.item(0).childNodes.item(0).nodeValue,
-                        careTel.item(0).childNodes.item(0).nodeValue,
-                        careAddr.item(0).childNodes.item(0).nodeValue
-                    )
+                var shelterModel: ShelterModel = ShelterModel(
+                    processState.item(0).childNodes.item(0).nodeValue,
+                    filename.item(0).childNodes.item(0).nodeValue,
+                    kindCd.item(0).childNodes.item(0).nodeValue,
+                    happenDt.item(0).childNodes.item(0).nodeValue,
+                    noticeNo.item(0).childNodes.item(0).nodeValue,
+                    happenPlace.item(0).childNodes.item(0).nodeValue,
+                    sexCd.item(0).childNodes.item(0).nodeValue,
+                    neuterYn.item(0).childNodes.item(0).nodeValue,
+                    colorCd.item(0).childNodes.item(0).nodeValue,
+                    age.item(0).childNodes.item(0).nodeValue,
+                    weight.item(0).childNodes.item(0).nodeValue,
+                    desertionNo.item(0).childNodes.item(0).nodeValue,
+                    specialMark.item(0).childNodes.item(0).nodeValue,
+                    careNm.item(0).childNodes.item(0).nodeValue,
+                    chargeNm?.item(0)?.childNodes?.item(0)?.nodeValue,
+                    careTel.item(0).childNodes.item(0).nodeValue,
+                    careAddr.item(0).childNodes.item(0).nodeValue
+                )
                 xmlList.add(shelterModel)
             }
             Log.e("xml 파싱", "xmlList = $xmlList")
