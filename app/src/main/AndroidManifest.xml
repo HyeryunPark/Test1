@@ -38,7 +38,7 @@
             android:name=".shelter.ShelterActivity"
             android:parentActivityName=".home.HomeActivity" />
         <activity android:name=".signup.SignUpActivity" />
-        <activity android:name=".PopUpActivity" />
+        <activity android:name=".popup.PopUpActivity" />
         <activity android:name=".login.LoginActivity" />
         <activity
             android:name=".SplashActivity"
