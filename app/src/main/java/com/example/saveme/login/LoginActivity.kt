@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.example.saveme.MainActivity
+import com.example.saveme.home.HomeActivity
 import com.example.saveme.signup.SignUpActivity
 import com.example.saveme.R
 import com.example.saveme.base.BaseActivity
@@ -78,7 +78,7 @@ class LoginActivity :  BaseActivity(), LoginContract.View {
 
 
     override fun startMainActivity() {
-        var intent = Intent(this, MainActivity::class.java)
+        var intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
         finish()
     }

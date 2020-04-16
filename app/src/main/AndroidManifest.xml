@@ -33,10 +33,10 @@
             android:parentActivityName=".missing.MissingActivity" />
         <activity
             android:name=".missing.MissingActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".home.HomeActivity" />
         <activity
             android:name=".shelter.ShelterActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".home.HomeActivity" />
         <activity android:name=".signup.SignUpActivity" />
         <activity android:name=".PopUpActivity" />
         <activity android:name=".login.LoginActivity" />
@@ -50,7 +50,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".home.HomeActivity" />
 
         <!-- 사진 촬영을 위한 provide -->
         <provider
