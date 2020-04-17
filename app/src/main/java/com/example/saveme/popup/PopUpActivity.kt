@@ -2,8 +2,10 @@ package com.example.saveme.popup
 
 import android.content.Intent
 import android.os.AsyncTask
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import com.example.saveme.R
 import com.example.saveme.home.HomeActivity
@@ -89,10 +91,14 @@ class PopUpActivity : AppCompatActivity() {
 
                     for (j in 0 until elem.attributes.length) {
 
-                        map.putIfAbsent(elem.attributes.item(j).nodeName, elem.attributes.item(j).nodeValue)
+                        map.putIfAbsent(
+                            elem.attributes.item(j).nodeName,
+                            elem.attributes.item(j).nodeValue
+                        )
                     }
 
-                    val processState: String = elem.getElementsByTagName("processState").item(0).textContent
+                    val processState: String =
+                        elem.getElementsByTagName("processState").item(0).textContent
                     val happenDt: String = elem.getElementsByTagName("happenDt").item(0).textContent
 
                     if (happenDt == "$formatted") {
@@ -109,12 +115,22 @@ class PopUpActivity : AppCompatActivity() {
 
                 super.onPostExecute(doc)
             }
-                val percenteuthanasia = String.format("%.1f", euthanasia * 100 / totalCount)
-                val percentadopt = String.format("%.1f", adopt * 100 / totalCount)
+            val percenteuthanasia = String.format("%.1f", euthanasia * 100 / totalCount)
+            val percentadopt = String.format("%.1f", adopt * 100 / totalCount)
 
-                Log.e("PopUp", "오늘구조된 : $todayrescue 올해 안락사율 : $percenteuthanasia% 올해 입양률 : $percentadopt%")
+            Log.e(
+                "PopUp",
+                "오늘 구조된 동물 수 : $todayrescue, 올해 입양률 : $percentadopt%, 올해 안락사율 : $percenteuthanasia% "
+            )
 
-                tv_pop.text = "오늘구조된 : $todayrescue 올해 안락사율 : $percenteuthanasia% 올해 입양률 : $percentadopt%"
+//            tv_rescued_number.text = "오늘 구조된 동물\n $todayrescue 마리"
+            tv_rescued_number.text = Html.fromHtml("오늘 구조된 동물<br /> <font color=\"#000000\">$todayrescue</font> 마리", Html.FROM_HTML_MODE_LEGACY)
+//            tv_adoption_rate.text = "입양률 <font color=\"#04B404\">$percenteuthanasia</font>%"
+            tv_adoption_rate.text = Html.fromHtml("입양률 <font color=\"#009900\">$percenteuthanasia</font> %", Html.FROM_HTML_MODE_LEGACY)
+//            tv_euthanasia_rate.text = "안락사율 <font color=\"#DF0101\">$percentadopt</font>%"
+            tv_euthanasia_rate.text = Html.fromHtml("안락사율 <font color=\"#FF0000\">$percentadopt</font> %", Html.FROM_HTML_MODE_LEGACY)
+
+
         }
 
     }
@@ -128,5 +144,4 @@ class PopUpActivity : AppCompatActivity() {
         } catch (e: Exception) {
         }
     }
-
 }
