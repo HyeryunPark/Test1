@@ -76,6 +76,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:background="@drawable/round_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
@@ -263,7 +264,6 @@
 
                 </LinearLayout>
 
-
             </LinearLayout>
 
         </LinearLayout>
@@ -273,11 +273,10 @@
         android:id="@+id/btn_start"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#f18372"
+        android:background="@color/colorPoint2"
         android:text="어플 시작하기"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
