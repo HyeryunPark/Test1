@@ -38,10 +38,10 @@ class ShelterActivity : BaseActivity(), ShelterContract.View {
         shelterPresenter.takeView(this)
 
         shelterAdapter = ShelterAdapter(this, shelterList)
-//        shelterPresenter.getAbandonedPetsParsing(shelterAdapter, shelterList, this)
+        shelterPresenter.getAbandonedPetsParsing(shelterAdapter, shelterList, this)
 
         // Recyclerview
-//        rv_shelter.adapter = shelterAdapter
+//        rv_shelter.adapter = ShelterAdapter(this@ShelterActivity, shelterList)
         rv_shelter.layoutManager = LinearLayoutManager(this)
         rv_shelter.setHasFixedSize(true)
         //  아이템이 추가되거나 삭제될 때 리싸이클로뷰의 크기가 변경될 수도 있고, 그렇게 되면 계층 구조의 다른 뷰의 크기가 변경될 가능성이 있다.

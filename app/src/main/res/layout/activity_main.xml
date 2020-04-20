@@ -58,7 +58,7 @@
                 android:backgroundTint="@color/colorPoint2"
                 android:minHeight="0dp"
                 android:padding="10dp"
-                android:text="실종/보호"
+                android:text="실 종 / 보 호"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_shelter"
                 app:layout_constraintEnd_toEndOf="parent"
