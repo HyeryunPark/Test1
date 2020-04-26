@@ -52,7 +52,7 @@ class SignUpActivity : BaseActivity(), SignUpContract.View {
                 et_signUpName.text.toString(),
                 et_signUpPw.text.toString()
             )
-            signUpPresenter.insertUserData(userData)
+            signUpPresenter.insertUserData(userData, this)
         }
     }
 

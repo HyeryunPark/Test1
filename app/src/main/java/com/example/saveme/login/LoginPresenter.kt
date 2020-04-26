@@ -1,10 +1,12 @@
 package com.example.saveme.login
 
+import android.content.Context
 import android.os.Handler
 import android.util.Log
 import com.example.saveme.network.Json_User
 import com.example.saveme.network.RetrofitClient
 import com.google.gson.Gson
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,9 +39,11 @@ class LoginPresenter : LoginContract.Presenter {
 
     // 로그인
     // view에서 입력한 email과 pawword를 받아와 db에 저장된 정보와 일치하는지 확인하는 함수
-    override fun checkLoginUser(inputEmail: String, inputPw: String) {
+    override fun checkLoginUser(context: Context, inputEmail: String, inputPw: String) {
+        val client: OkHttpClient = RetrofitClient.getClient(context, "")
+        val retrofitInterface = RetrofitClient.retrofitInterface(client)
 
-       /* retrofitInterface.logIn(inputEmail).enqueue(object : Callback<List<Json_User>>{
+        retrofitInterface.logIn(inputEmail).enqueue(object : Callback<List<Json_User>>{
             override fun onResponse(call: Call<List<Json_User>>, response: Response<List<Json_User>>) {
                 if (response.isSuccessful){
                     Log.e("Success", Gson().toJson(response.body()))
@@ -72,7 +76,7 @@ class LoginPresenter : LoginContract.Presenter {
                 Log.e("Login Fail",t.toString())
             }
 
-        })*/
+        })
 
     }
 

@@ -25,7 +25,7 @@ interface RetrofitInterface {
     */
 
     // 로그인
-    @GET("/user")
+    @GET("/users")
     fun logIn(@Query("userEmail") userEmail: String): Call<List<Json_User>>
 
 /*    @FormUrlEncoded
@@ -35,7 +35,7 @@ interface RetrofitInterface {
 
     // 회원가입
     @FormUrlEncoded
-    @POST("/user/")
+    @POST("/users/")
     fun signUp(
         @Field("userEmail") userEmail: String,
         @Field("userName") userName: String,
