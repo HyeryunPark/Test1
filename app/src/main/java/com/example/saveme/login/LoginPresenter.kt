@@ -43,7 +43,7 @@ class LoginPresenter : LoginContract.Presenter {
         val client: OkHttpClient = RetrofitClient.getClient(context, "")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)
 
-        retrofitInterface.logIn(inputEmail).enqueue(object : Callback<List<Json_User>>{
+        retrofitInterface.logIn(inputEmail, inputPw).enqueue(object : Callback<List<Json_User>>{
             override fun onResponse(call: Call<List<Json_User>>, response: Response<List<Json_User>>) {
                 if (response.isSuccessful){
                     Log.e("Success", Gson().toJson(response.body()))
@@ -52,7 +52,7 @@ class LoginPresenter : LoginContract.Presenter {
                             loginView?.showToastMessage("존재하지 않는 계정입니다.")
                             Log.e("계정없음","존재하지않는 이메일")
                         }else{
-                            
+
                             if(inputEmail == response.body()!!.get(0).userEmail && inputPw == response.body()!!.get(0).userPw){
                                 // 이메일, 비밀번호 일치
                                 loginView?.showToastMessage("계정정보일치")

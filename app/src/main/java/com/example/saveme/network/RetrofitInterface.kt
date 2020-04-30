@@ -25,13 +25,13 @@ interface RetrofitInterface {
     */
 
     // 로그인
-    @GET("/users")
-    fun logIn(@Query("userEmail") userEmail: String): Call<List<Json_User>>
+/*    @GET("/users")
+    fun logIn(@Query("userEmail") userEmail: String): Call<List<Json_User>>*/
 
-/*    @FormUrlEncoded
-    @POST("user/")
-    fun logIn(@Field("userEmail") userEmail : String,
-              @Field("userPw") userPw : String): Call<List<Json_User>>*/
+    @FormUrlEncoded
+    @POST("/saveme_app/auth/login/")
+    fun logIn(@Field("username") userEmail : String,
+              @Field("password") userPw : String): Call<List<Json_User>>
 
     // 회원가입
     @FormUrlEncoded
