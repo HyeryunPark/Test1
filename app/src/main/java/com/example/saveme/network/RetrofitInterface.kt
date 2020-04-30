@@ -35,11 +35,11 @@ interface RetrofitInterface {
 
     // 회원가입
     @FormUrlEncoded
-    @POST("/users/")
+    @POST("/saveme_app/auth/register/")
     fun signUp(
-        @Field("userEmail") userEmail: String,
-        @Field("userName") userName: String,
-        @Field("userPw") userPw: String
+        @Field("email") userEmail: String,
+        @Field("username") userName: String,
+        @Field("password") userPw: String
     ): Call<ResponseBody>
 
     // 보호소 동물 리스트 받아오기
