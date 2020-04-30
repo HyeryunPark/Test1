@@ -18,12 +18,21 @@ object RetrofitClient {
 
     fun getClient(context: Context, type: String): OkHttpClient {
         if (type.equals("addCookie")) {
+//            val addCookiesInterceptor = AddCookiesInterceptor(context)
             val client = OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .build()
             return client
-        } else {
-
+        }
+        /*else if (type.equals("receiveCookie")) {
+            val receivedCookiesInterceptor = ReceivedCookiesInterceptor(context)
+            val client = OkHttpClient.Builder()
+                .addInterceptor(receivedCookiesInterceptor)
+                .addInterceptor(loggingInterceptor)
+                .build()
+            return client
+        }*/
+        else {
             val client = OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .connectTimeout(1, TimeUnit.MINUTES)

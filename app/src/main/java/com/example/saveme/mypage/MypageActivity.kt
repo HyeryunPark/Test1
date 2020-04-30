@@ -6,7 +6,10 @@ import com.example.saveme.R
 import com.example.saveme.base.BaseActivity
 import com.example.saveme.community.CommunityActivity
 import com.example.saveme.home.HomeActivity
+import com.example.saveme.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.bnv_home
+import kotlinx.android.synthetic.main.activity_mypage.*
 
 class MypageActivity : BaseActivity(), MypageContract.View {
 
@@ -18,6 +21,11 @@ class MypageActivity : BaseActivity(), MypageContract.View {
 
         mypagePresenter.takeView(this)
         bottomNavigationView()
+
+        textView12.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

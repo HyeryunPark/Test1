@@ -11,8 +11,8 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:text="마이페이지"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
             android:id="@+id/mypage_image"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="@drawable/image" />
+            android:src="@drawable/image"/>
 
         <TextView
             android:id="@+id/mypage_username"
@@ -58,38 +58,40 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/underline_textview"
             android:gravity="center_vertical"
-            android:padding="4dp"
+            android:padding="16dp"
             android:text="마이페이지 목록"
             android:textSize="18sp" />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/underline_textview"
             android:gravity="center_vertical"
-            android:padding="4dp"
+            android:padding="16dp"
             android:text="목록"
             android:textSize="18sp" />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/underline_textview"
             android:gravity="center_vertical"
-            android:padding="4dp"
+            android:padding="16dp"
             android:text="뭘로하즤"
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/btn_logout"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/underline_textview"
             android:gravity="center_vertical"
-            android:padding="4dp"
-            android:text="뇨호"
+            android:textColor="@android:color/holo_red_light"
+            android:padding="16dp"
+            android:text="로그아웃"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -102,4 +104,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottomnav_menu" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
