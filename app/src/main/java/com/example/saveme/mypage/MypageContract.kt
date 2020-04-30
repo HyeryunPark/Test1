@@ -7,6 +7,8 @@ interface MypageContract {
 
     interface View : BaseView {
 
+        fun bottomNavigationView()
+
     }
 
     interface Presenter : BasePresenter<View> {

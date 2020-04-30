@@ -8,6 +8,7 @@ import com.example.saveme.R
 import com.example.saveme.base.BaseActivity
 import com.example.saveme.home.HomeActivity
 import com.example.saveme.login.LoginActivity
+import com.example.saveme.mypage.MypageActivity
 import kotlinx.android.synthetic.main.activity_community.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -48,7 +49,7 @@ class CommunityActivity : BaseActivity(), CommunityContract.View {
 
                 }
                 R.id.bottom_mypage -> {
-                    val intent_mypage = Intent(this, LoginActivity::class.java)
+                    val intent_mypage = Intent(this, MypageActivity::class.java)
                     intent_mypage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     overridePendingTransition(0, 0)
                     startActivity(intent_mypage)

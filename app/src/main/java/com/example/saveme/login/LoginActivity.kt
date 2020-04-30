@@ -39,9 +39,9 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     }
 
     private fun setButton() {
-        btn_loginKakao.setOnClickListener {
+        /*btn_loginKakao.setOnClickListener {
             loginPresenter.getUserList()
-        }
+        }*/
     }
 
     // LoginActivity에서 로그인버튼을 누름

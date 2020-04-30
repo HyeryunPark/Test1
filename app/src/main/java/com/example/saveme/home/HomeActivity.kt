@@ -11,6 +11,7 @@ import com.example.saveme.community.CommunityActivity
 import com.example.saveme.missing.MissingActivity
 import com.example.saveme.shelter.ShelterActivity
 import com.example.saveme.login.LoginActivity
+import com.example.saveme.mypage.MypageActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class HomeActivity : BaseActivity(), HomeContract.View {
@@ -64,7 +65,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
                     finish()
                 }
                 R.id.bottom_mypage -> {
-                    val intent_mypage = Intent(this, LoginActivity::class.java)
+                    val intent_mypage = Intent(this, MypageActivity::class.java)
                     intent_mypage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     overridePendingTransition(0, 0)
                     startActivity(intent_mypage)
