@@ -27,6 +27,10 @@ class MypageActivity : BaseActivity(), MypageContract.View {
             startActivity(intent)
         }
 
+        btn_logout.setOnClickListener {
+            mypagePresenter.logout(this, token = "0")
+        }
+
     }
 
     override fun initPresenter() {

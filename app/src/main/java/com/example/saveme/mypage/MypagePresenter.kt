@@ -23,7 +23,7 @@ class MypagePresenter : MypageContract.Presenter {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 Log.e("Logout Success", Gson().toJson(response.body()))
                 if(response.body() !== null){
-                    
+
 
                 }else {
 
