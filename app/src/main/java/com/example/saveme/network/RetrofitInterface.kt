@@ -4,6 +4,7 @@ import com.example.saveme.missing.MissingModel
 import com.example.saveme.model.CreateMissing
 import com.example.saveme.model.GetMissingList
 import com.example.saveme.model.GetShelterList
+import com.example.saveme.model.GetUser
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -43,7 +44,7 @@ interface RetrofitInterface {
     fun logIn(
         @Field("username") userEmail: String,
         @Field("password") userPw: String
-    ): Call<List<Json_User>>
+    ): Call<GetUser>
 
     // 로그아웃
     // 헤더에 KEY : Authorization, VALUE : Token 토큰값 으로 보내기
