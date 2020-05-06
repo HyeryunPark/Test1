@@ -4,6 +4,7 @@ import com.example.saveme.missing.MissingModel
 import com.example.saveme.model.CreateMissing
 import com.example.saveme.model.GetMissingList
 import com.example.saveme.model.GetShelterList
+import com.example.saveme.model.GetUser
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -24,23 +25,32 @@ interface RetrofitInterface {
     @FormUrlEncoded = 입력된 스트링이나 해시맵을 데이터베이스에 반영될 수 있도록 인코딩해줌
     */
 
-    // 로그인
-    @GET("/user")
-    fun logIn(@Query("userEmail") userEmail: String): Call<List<Json_User>>
-
-/*    @FormUrlEncoded
-    @POST("user/")
-    fun logIn(@Field("userEmail") userEmail : String,
-              @Field("userPw") userPw : String): Call<List<Json_User>>*/
 
     // 회원가입
     @FormUrlEncoded
-    @POST("/user/")
+    @POST("/saveme_app/auth/register/")
     fun signUp(
-        @Field("userEmail") userEmail: String,
-        @Field("userName") userName: String,
-        @Field("userPw") userPw: String
+        @Field("email") userEmail: String,
+        @Field("username") userName: String,
+        @Field("password") userPw: String
     ): Call<ResponseBody>
+
+    // 로그인
+/*    @GET("/users")
+    fun logIn(@Query("userEmail") userEmail: String): Call<List<Json_User>>*/
+
+    @FormUrlEncoded
+    @POST("/saveme_app/auth/login/")
+    fun logIn(
+        @Field("username") userEmail: String,
+        @Field("password") userPw: String
+    ): Call<GetUser>
+
+    // 로그아웃
+    // 헤더에 KEY : Authorization, VALUE : Token 토큰값 으로 보내기
+    @POST("/saveme_app/auth/logout/")
+    fun logout(@Header("Authorization") token: String): Call<ResponseBody>
+
 
     // 보호소 동물 리스트 받아오기
     @GET("/shelters")
@@ -83,11 +93,6 @@ interface RetrofitInterface {
     // 실종동물 글 삭제하기
     @DELETE("/missings/{pk}/")
     fun deleteMissingData(@Path("pk") pk: Int): Call<ResponseBody>
-
-
-
-
-
 
 
     @FormUrlEncoded

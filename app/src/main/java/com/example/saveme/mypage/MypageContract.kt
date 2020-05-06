@@ -1,9 +1,10 @@
-package com.example.saveme.community
+package com.example.saveme.mypage
 
+import android.content.Context
 import com.example.saveme.base.BasePresenter
 import com.example.saveme.base.BaseView
 
-interface CommunityContract {
+interface MypageContract {
 
     interface View : BaseView {
 
@@ -13,5 +14,6 @@ interface CommunityContract {
 
     interface Presenter : BasePresenter<View> {
 
+        fun logout(context: Context, token: String)
     }
 }

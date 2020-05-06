@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PopUpActivity">
+    tools:context=".popup.PopUpActivity">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -75,10 +75,43 @@
 
                 </LinearLayout>
 
-                <ImageView
+                <LinearLayout
+                    android:background="@drawable/round_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@android:color/white" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_rescued_number"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="오늘 구조된 동물"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_adoption_rate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="입양률"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_euthanasia_rate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="안락사율"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -231,7 +264,6 @@
 
                 </LinearLayout>
 
-
             </LinearLayout>
 
         </LinearLayout>
@@ -241,11 +273,10 @@
         android:id="@+id/btn_start"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#f18372"
+        android:background="@color/colorPoint2"
         android:text="어플 시작하기"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
