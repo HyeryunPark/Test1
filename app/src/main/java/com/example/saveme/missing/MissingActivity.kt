@@ -2,21 +2,14 @@ package com.example.saveme.missing
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.saveme.R
 import com.example.saveme.base.BaseActivity
 import com.example.saveme.missing.createmissing.MissingReportActivity
-import com.example.saveme.missing.missingdetail.MissingDetailActivity
 import com.example.saveme.model.CreateMissing
-import com.example.saveme.network.RetrofitClient
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_missing.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MissingActivity : BaseActivity(), MissingContract.View {
 

@@ -1,4 +1,4 @@
-package com.example.saveme.community
+package com.example.saveme.community.communitydetail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

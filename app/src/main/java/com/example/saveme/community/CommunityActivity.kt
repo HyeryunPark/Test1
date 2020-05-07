@@ -1,20 +1,24 @@
 package com.example.saveme.community
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.saveme.R
 import com.example.saveme.base.BaseActivity
+import com.example.saveme.community.createcommunity.CommunityReportActivity
 import com.example.saveme.home.HomeActivity
-import com.example.saveme.login.LoginActivity
+import com.example.saveme.model.CreateCommunity
 import com.example.saveme.mypage.MypageActivity
 import kotlinx.android.synthetic.main.activity_community.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 class CommunityActivity : BaseActivity(), CommunityContract.View {
 
     private lateinit var communityPresenter: CommunityPresenter
+    var communityList = arrayListOf<CommunityModel>()
+
+    lateinit var communityAdapter: CommunityAdapter
 
     private var lastTimeBackPressed: Long = -1500
 
@@ -24,15 +28,53 @@ class CommunityActivity : BaseActivity(), CommunityContract.View {
 
         communityPresenter.takeView(this)
 
+        communityAdapter = CommunityAdapter(this, communityList, communityPresenter)
+        communityPresenter.loadItems(communityAdapter, communityList, this)
+
         bottomNavigationView()
 
         // RecyclerView
-        rv_community.adapter = CommunityAdapter()
+        rv_community.adapter = communityAdapter
         rv_community.layoutManager = LinearLayoutManager(this)
+
+        // 플러팅버튼 누르면 글 작성하는 페이지로 이동
+        ftb_community_write.setOnClickListener {
+            val intent = Intent(this, CommunityReportActivity::class.java)
+            startActivityForResult(intent, 101)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            101 -> {  // 글 작성 후
+                when (resultCode) {
+                    Activity.RESULT_OK -> if (data != null) {
+
+                        val createCommunity: CreateCommunity = CreateCommunity(
+                            data.getIntExtra("user_id", 0),
+                            data.getStringExtra("community_title"),
+                            data.getStringExtra("community_content"),
+                            data.getStringExtra("img1"),
+                            data.getStringExtra("img2"),
+                            data.getStringExtra("img3")
+                        )
+
+                        communityPresenter.addItems(createCommunity, this, communityAdapter, communityList)
+                    }
+                }
+            }
+
+        }
     }
 
     override fun initPresenter() {
         communityPresenter = CommunityPresenter()
+    }
+
+    override fun refresh() {
+        communityAdapter.notifyDataSetChanged()
     }
 
     override fun bottomNavigationView() {

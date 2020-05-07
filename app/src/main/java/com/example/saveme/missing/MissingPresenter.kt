@@ -129,7 +129,7 @@ class MissingPresenter : MissingContract.Presenter {
                 multipartBody1, multiPartBody2, null
             )
         }
-        if (!createMissing.image2.equals("null") && createMissing.image3.equals("null")) {
+        if (!createMissing.image2.equals("null") && !createMissing.image3.equals("null")) {
             val image_file2 = File(createMissing.image2)
             val requestBody2 = RequestBody.create(MediaType.parse("multipart/data"), image_file2)
             multiPartBody2 =
