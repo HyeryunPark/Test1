@@ -15,13 +15,13 @@
         android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mypage.MypageActivity"></activity>
-        <!-- crop activity -->
+        <activity android:name=".community.createcommunity.CommunityReportActivity"></activity>
+        <activity android:name=".mypage.MypageActivity" /> <!-- crop activity -->
         <activity
             android:name="com.soundcloud.android.crop.CropImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".community.CommunityDetailActivity" />
+        <activity android:name=".community.communitydetail.CommunityDetailActivity" />
         <activity android:name=".community.CommunityActivity" />
         <activity
             android:name=".missing.createmissing.MissingReportActivity"

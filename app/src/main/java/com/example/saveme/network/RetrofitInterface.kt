@@ -1,10 +1,7 @@
 package com.example.saveme.network
 
 import com.example.saveme.missing.MissingModel
-import com.example.saveme.model.CreateMissing
-import com.example.saveme.model.GetMissingList
-import com.example.saveme.model.GetShelterList
-import com.example.saveme.model.GetUser
+import com.example.saveme.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -38,7 +35,6 @@ interface RetrofitInterface {
     // 로그인
 /*    @GET("/users")
     fun logIn(@Query("userEmail") userEmail: String): Call<List<Json_User>>*/
-
     @FormUrlEncoded
     @POST("/saveme_app/auth/login/")
     fun logIn(
@@ -50,7 +46,6 @@ interface RetrofitInterface {
     // 헤더에 KEY : Authorization, VALUE : Token 토큰값 으로 보내기
     @POST("/saveme_app/auth/logout/")
     fun logout(@Header("Authorization") token: String): Call<ResponseBody>
-
 
     // 보호소 동물 리스트 받아오기
     @GET("/shelters")
@@ -93,6 +88,26 @@ interface RetrofitInterface {
     // 실종동물 글 삭제하기
     @DELETE("/missings/{pk}/")
     fun deleteMissingData(@Path("pk") pk: Int): Call<ResponseBody>
+
+    // 커뮤니티 글 조회
+    @GET("/community")
+    fun getCommunityData(): Call<List<GetCommunityList>>
+
+    // 커뮤니티 글 작성
+    @Multipart
+    @POST("/community/")
+    fun createCommunityData(
+        @Part("user_id") user_id: Int,
+        @Part("community_title") community_title: RequestBody,
+        @Part("community_content") community_content: RequestBody,
+        @Part img1: MultipartBody.Part,
+        @Part img2: MultipartBody.Part?,
+        @Part img3: MultipartBody.Part?
+    ): Call<CreateCommunity>
+
+    // 커뮤니티 글 수정
+
+    // 커뮤니티 글 삭제
 
 
     @FormUrlEncoded

@@ -81,6 +81,7 @@
         tools:listitem="@layout/item_community" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ftb_community_write"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
