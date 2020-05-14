@@ -54,6 +54,7 @@ class CommunityActivity : BaseActivity(), CommunityContract.View {
 
                         val createCommunity: CreateCommunity = CreateCommunity(
                             data.getIntExtra("user_id", 0),
+                            data.getStringExtra("community_category"),
                             data.getStringExtra("community_title"),
                             data.getStringExtra("community_content"),
                             data.getStringExtra("img1"),

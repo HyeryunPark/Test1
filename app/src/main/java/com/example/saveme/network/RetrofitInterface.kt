@@ -98,6 +98,7 @@ interface RetrofitInterface {
     @POST("/community/")
     fun createCommunityData(
         @Part("user_id") user_id: Int,
+        @Part("community_category") community_category: RequestBody,
         @Part("community_title") community_title: RequestBody,
         @Part("community_content") community_content: RequestBody,
         @Part img1: MultipartBody.Part,

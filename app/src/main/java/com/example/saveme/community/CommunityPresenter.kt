@@ -45,6 +45,9 @@ class CommunityPresenter : CommunityContract.Presenter {
 
                             var addData: CommunityModel = CommunityModel(
                                 communityList.user_id,
+                                communityList.user_name,
+                                communityList.community_category,
+                                communityList.community_date,
                                 communityList.community_title,
                                 communityList.community_content,
                                 communityList.img1,
@@ -88,6 +91,7 @@ class CommunityPresenter : CommunityContract.Presenter {
 
             register_request = retrofitInterface.createCommunityData(
                 0,
+                RequestBody.create(MediaType.parse("multipart/data"), createCommunity.category),
                 RequestBody.create(MediaType.parse("multipart/data"), createCommunity.title),
                 RequestBody.create(MediaType.parse("multipart/data"), createCommunity.content),
                 multipartBody1, multiPartBody2, null
@@ -104,6 +108,7 @@ class CommunityPresenter : CommunityContract.Presenter {
 
             register_request = retrofitInterface.createCommunityData(
                 0,
+                RequestBody.create(MediaType.parse("multipart/data"), createCommunity.category),
                 RequestBody.create(MediaType.parse("multipart/data"), createCommunity.title),
                 RequestBody.create(MediaType.parse("multipart/data"), createCommunity.content),
                 multipartBody1, multiPartBody2, multiPartBody3
@@ -113,6 +118,7 @@ class CommunityPresenter : CommunityContract.Presenter {
 
             register_request = retrofitInterface.createCommunityData(
                 0,
+                RequestBody.create(MediaType.parse("multipart/data"), createCommunity.category),
                 RequestBody.create(MediaType.parse("multipart/data"), createCommunity.title),
                 RequestBody.create(MediaType.parse("multipart/data"), createCommunity.content),
                 multipartBody1, null, null )

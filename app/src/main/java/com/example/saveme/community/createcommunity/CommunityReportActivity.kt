@@ -54,6 +54,18 @@ class CommunityReportActivity : BaseActivity(), CommunityReportContract.View {
         community_report_img1.setOnClickListener {
             tedPermission()
         }
+
+        tv_community_report_category.setOnClickListener {
+            val items = arrayOf("반려이야기", "입양/재회 후기", "입양해주세요", "임시호보요청")
+            val builder = AlertDialog.Builder(this)
+            with(builder) {
+                setTitle("카테고리 선택")
+                setItems(items) { dialogInterface, i ->
+                    tv_community_report_category.text = items[i]
+                }
+                show()
+            }
+        }
     }
 
     override fun initPresenter() {
@@ -64,10 +76,13 @@ class CommunityReportActivity : BaseActivity(), CommunityReportContract.View {
         btn_community_report_registration.setOnClickListener {
 
             val intent = Intent()
-            if (et_community_report_title.text.isEmpty() && et_community_report_content.text.isEmpty()) {
+            if (tv_community_report_category.text == "카테고리를 선택해주세요.") {
+                Toast.makeText(this, "카테고리를 선택해주세요", Toast.LENGTH_SHORT).show()
+            } else if (et_community_report_title.text.isEmpty() && et_community_report_content.text.isEmpty()) {
                 Toast.makeText(this, "비어있는 칸을 채워주세요", Toast.LENGTH_SHORT).show()
             } else {
                 intent.putExtra("user_id", 0)
+                intent.putExtra("community_category", tv_community_report_category.text.toString())
                 intent.putExtra("community_title", et_community_report_title.text.toString())
                 intent.putExtra("community_content", et_community_report_content.text.toString())
                 intent.putExtra("img1", lastUri)
