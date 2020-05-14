@@ -35,7 +35,7 @@
             android:id="@+id/mypage_image"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/image"/>
+            android:src="@drawable/image" />
 
         <TextView
             android:id="@+id/mypage_username"
@@ -50,8 +50,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_margin="16dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout11">
@@ -89,9 +89,9 @@
             android:layout_height="wrap_content"
             android:background="@drawable/underline_textview"
             android:gravity="center_vertical"
-            android:textColor="@android:color/holo_red_light"
             android:padding="16dp"
             android:text="로그아웃"
+            android:textColor="@android:color/holo_red_light"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -100,6 +100,7 @@
         android:id="@+id/bnv_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/border_topline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
