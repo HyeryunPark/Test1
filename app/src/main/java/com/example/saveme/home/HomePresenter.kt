@@ -40,7 +40,16 @@ class HomePresenter : HomeContract.Presenter {
                             var communityList: GetCommunityList = GetCommunityList()
                             communityList = body[i]
 
-                            var addData: CommunityModel = CommunityModel(
+                            if(communityList.community_category == "입양해주세요"){
+                                Log.e("'입양해주세요' 카테고리 글 : ", communityList.community_title)
+                                homeView!!.setAdoptItems(communityList.community_title, communityList.img1)
+
+                            }else if(communityList.community_category == "임시보호요청"){
+                                Log.e("'임시호보요청' 카테고리 글 : ", communityList.community_title)
+                                homeView!!.setProtectionItems(communityList.community_title, communityList.img1)
+                            }
+
+                            /*var addData: CommunityModel = CommunityModel(
                                 communityList.user_id,
                                 communityList.user_name,
                                 communityList.community_category,
@@ -50,13 +59,15 @@ class HomePresenter : HomeContract.Presenter {
                                 communityList.img1,
                                 communityList.img2,
                                 communityList.img3
-                            )
+                            )*/
                             Log.e("GET CommunityList : ", communityList.community_title)
 
                         }
                     }
 
+
                 }
+
 
             }
 

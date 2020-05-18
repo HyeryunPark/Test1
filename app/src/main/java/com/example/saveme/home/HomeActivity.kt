@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.saveme.R
 import com.example.saveme.base.BaseActivity
 import com.example.saveme.base.BaseView
 import com.example.saveme.community.CommunityActivity
+import com.example.saveme.community.CommunityModel
 import com.example.saveme.missing.MissingActivity
 import com.example.saveme.shelter.ShelterActivity
 import com.example.saveme.login.LoginActivity
@@ -17,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class HomeActivity : BaseActivity(), HomeContract.View {
 
     private lateinit var homePresenter: HomePresenter
+    var communityList = arrayListOf<CommunityModel>()
 
     private var lastTimeBackPressed: Long = -1500
 
@@ -26,6 +29,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         setContentView(R.layout.activity_main)
 
         homePresenter.takeView(this)
+        homePresenter.loadItems(communityList, this)
 
         bottomNavigationView()
 
@@ -76,6 +80,24 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         }
         bnv_home.menu.findItem(R.id.bottom_home)?.isChecked = true
 
+    }
+
+    // presenter 에서 얻어온 데이터를 화면에 반영
+    override fun setAdoptItems(title: String, img1: String) {
+        Glide.with(this).load(img1).into(main_adopt_img1)
+        main_adopt_tv1.text = title
+        Glide.with(this).load(img1).into(main_adopt_img2)
+        main_adopt_tv2.text = title
+        Glide.with(this).load(img1).into(main_adopt_img3)
+        main_adopt_tv3.text = title
+    }
+    override fun setProtectionItems(title: String, img1: String) {
+        Glide.with(this).load(img1).into(main_protection_img1)
+        main_protection_tv1.text = title
+        Glide.with(this).load(img1).into(main_protection_img2)
+        main_protection_tv2.text = title
+        Glide.with(this).load(img1).into(main_protection_img3)
+        main_protection_tv3.text = title
     }
 
     override fun onBackPressed() {

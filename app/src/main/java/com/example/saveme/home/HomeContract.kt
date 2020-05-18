@@ -10,6 +10,9 @@ interface HomeContract {
     interface View:BaseView{
 
         fun bottomNavigationView()
+
+        fun setAdoptItems(title: String, img1: String)
+        fun setProtectionItems(title: String, img1: String)
     }
     interface Presenter : BasePresenter<View>{
 
