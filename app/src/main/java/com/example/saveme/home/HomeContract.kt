@@ -11,8 +11,12 @@ interface HomeContract {
 
         fun bottomNavigationView()
 
-        fun setAdoptItems(title: String, img1: String)
-        fun setProtectionItems(title: String, img1: String)
+        fun setAdoptItems1(title: String, img1: String)
+        fun setAdoptItems2(title: String, img1: String)
+        fun setAdoptItems3(title: String, img1: String)
+        fun setProtectionItems1(title: String, img1: String)
+        fun setProtectionItems2(title: String, img1: String)
+        fun setProtectionItems3(title: String, img1: String)
     }
     interface Presenter : BasePresenter<View>{
 

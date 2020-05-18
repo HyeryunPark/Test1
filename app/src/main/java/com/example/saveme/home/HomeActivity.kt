@@ -83,19 +83,27 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     }
 
     // presenter 에서 얻어온 데이터를 화면에 반영
-    override fun setAdoptItems(title: String, img1: String) {
+    override fun setAdoptItems1(title: String, img1: String) {
         Glide.with(this).load(img1).into(main_adopt_img1)
         main_adopt_tv1.text = title
+    }
+    override fun setAdoptItems2(title: String, img1: String) {
         Glide.with(this).load(img1).into(main_adopt_img2)
         main_adopt_tv2.text = title
+    }
+    override fun setAdoptItems3(title: String, img1: String) {
         Glide.with(this).load(img1).into(main_adopt_img3)
         main_adopt_tv3.text = title
     }
-    override fun setProtectionItems(title: String, img1: String) {
+    override fun setProtectionItems1(title: String, img1: String) {
         Glide.with(this).load(img1).into(main_protection_img1)
         main_protection_tv1.text = title
+    }
+    override fun setProtectionItems2(title: String, img1: String) {
         Glide.with(this).load(img1).into(main_protection_img2)
         main_protection_tv2.text = title
+    }
+    override fun setProtectionItems3(title: String, img1: String) {
         Glide.with(this).load(img1).into(main_protection_img3)
         main_protection_tv3.text = title
     }
