@@ -157,7 +157,6 @@ class MissingActivity : BaseActivity(), MissingContract.View {
     }
 
     override fun showNothingText(type: Boolean) {
-
         if (type) { // type = true (리스트가 비어있을 때)
             tv_missing_nothingText.visibility = View.VISIBLE
             rv_missing.visibility = View.GONE
