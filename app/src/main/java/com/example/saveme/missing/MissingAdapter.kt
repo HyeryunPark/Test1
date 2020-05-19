@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -52,6 +53,26 @@ class MissingAdapter(
                 val tvMissingImage = itemView.findViewById<ImageView>(R.id.tv_missing_image)
                 Glide.with(context as MissingActivity).load(item.image1).into(tvMissingImage)
 
+                when (item.status) {
+                    "실종" -> {
+                        tvMissingStatus.text = "실종"
+                        tvMissingStatus.setBackgroundColor(Color.parseColor("#7ff77345"))
+                    }
+                    "보호" -> {
+                        tvMissingStatus.text = "보호"
+                        tvMissingStatus.setBackgroundColor(Color.parseColor("#7f66CC00"))
+                    }
+                    "목격" -> {
+                        tvMissingStatus.text = "목격"
+                        tvMissingStatus.setBackgroundColor(Color.parseColor("#7fe3d21b"))
+                    }
+                    "완료" -> {
+                        tvMissingStatus.text = "완료"
+                        tvMissingStatus.setBackgroundColor(Color.parseColor("#7f0033CC"))
+                    }
+
+                    // datetime 에서 date 만 뽑아와서 출력
+                }
                 tvMissingSpecies.text = "[" + item.species + "]"
                 tvMissingBreed.text = item.breed
                 tvMissingGender.text = item.gender
@@ -59,7 +80,7 @@ class MissingAdapter(
                 if (item.weight == "모름") {
                     tvMissingWeight.text = item.weight
                 } else
-                    tvMissingWeight.text = item.weight + "kg"
+                    tvMissingWeight.text = item.weight
 
 
                 tvMissingPattern.text = item.pattern
@@ -157,6 +178,7 @@ class MissingAdapter(
             )
         ) {
         val tvMissingImage: ImageView = itemView.tv_missing_image
+        val tvMissingStatus: TextView = itemView.tv_missing_status
         val tvMissingSpecies: TextView = itemView.tv_missing_species
         val tvMissingBreed: TextView = itemView.tv_missing_breed
         val tvMissingGender: TextView = itemView.tv_missing_gender

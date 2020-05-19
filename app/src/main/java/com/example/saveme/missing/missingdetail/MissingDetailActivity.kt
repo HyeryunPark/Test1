@@ -56,8 +56,8 @@ class MissingDetailActivity : AppCompatActivity() {
         tv_missing_detail_status.text = status
         when (status) {
             "실종" -> tv_missing_detail_status.setBackgroundColor(Color.parseColor("#f77345"))
-            "목격" -> tv_missing_detail_status.setBackgroundColor(Color.parseColor("#e3d21b"))
             "보호" -> tv_missing_detail_status.setBackgroundColor(Color.parseColor("#66CC00"))
+            "목격" -> tv_missing_detail_status.setBackgroundColor(Color.parseColor("#e3d21b"))
             "완료" -> tv_missing_detail_status.setBackgroundColor(Color.parseColor("#0033CC"))
         }
 

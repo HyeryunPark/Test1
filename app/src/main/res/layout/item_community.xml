@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
@@ -35,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="id"
+                android:text="name"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_community_writing_time"
                 app:layout_constraintStart_toEndOf="@+id/iv_community_user_image"
@@ -67,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,8 +86,8 @@
                 android:id="@+id/tv_community_writing_content"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginTop="8dp"
-                android:text="내용\n 내용\n 내용\n 내용\n 내용\n 내용\n "
+                android:layout_marginTop="16dp"
+                android:text=" 내용\n 내용\n 내용\n 내용\n 내용\n 내용\n "
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -111,22 +110,24 @@
                         android:id="@+id/iv_community_image1"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:layout_marginRight="8dp"
+                        android:layout_marginEnd="8dp"
                         android:src="@drawable/image" />
 
                     <ImageView
                         android:id="@+id/iv_community_image2"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/image" />
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/image"
+                        android:visibility="invisible" />
 
                     <ImageView
                         android:id="@+id/iv_community_image3"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/image" />
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/image"
+                        android:visibility="invisible" />
 
                 </LinearLayout>
             </HorizontalScrollView>
@@ -159,8 +160,8 @@
                 android:id="@+id/tv_community_like_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="하트 수 표시"
+                android:layout_marginStart="4dp"
+                android:text="0"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/btn_community_like"

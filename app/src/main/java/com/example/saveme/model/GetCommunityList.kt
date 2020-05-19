@@ -3,8 +3,14 @@ package com.example.saveme.model
 import com.google.gson.annotations.SerializedName
 
 class GetCommunityList {
+    @SerializedName("id")
+    val id = 0
     @SerializedName("user_id")
     val user_id = 0
+    @SerializedName("user_name")
+    val user_name = ""
+    @SerializedName("community_category")
+    val community_category = ""
     @SerializedName("community_date")
     val community_date = ""
     @SerializedName("community_title")

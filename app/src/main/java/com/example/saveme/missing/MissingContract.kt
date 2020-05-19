@@ -12,6 +12,7 @@ interface MissingContract {
         fun refresh()
 
         fun modifyActivity(id: Int, missingModel: MissingModel)
+        fun showNothingText(type: Boolean)
     }
 
     interface Presenter : BasePresenter<View> {

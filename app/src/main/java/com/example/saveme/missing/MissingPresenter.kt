@@ -25,11 +25,8 @@ class MissingPresenter : MissingContract.Presenter {
         missingView = null
     }
 
-    override fun loadItems(
-        adapter: MissingAdapter,
-        list: ArrayList<MissingModel>,
-        context: Context
-    ) {  // 글 전체 불러오기
+    // 글 전체 불러오기
+    override fun loadItems(adapter: MissingAdapter, list: ArrayList<MissingModel>, context: Context) {
 //        val client: OkHttpClient = OkHttpClient()
         val client: OkHttpClient = RetrofitClient.getClient(context, "")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)
@@ -45,7 +42,7 @@ class MissingPresenter : MissingContract.Presenter {
                         for (i in 0 until body.size) {
                             var missingList: GetMissingList = GetMissingList()
                             missingList = body[i]
-                            
+
                             var addData: MissingModel = MissingModel(
                                 missingList.id,
                                 missingList.status,
@@ -71,7 +68,11 @@ class MissingPresenter : MissingContract.Presenter {
                             adapter.addItem(addData)
                             missingView!!.refresh()
                         }
-
+                        if (list.size == 0) {
+                            missingView?.showNothingText(true)
+                        } else {
+                            missingView?.showNothingText(false)
+                        }
                     }
                 }
             }
@@ -84,12 +85,8 @@ class MissingPresenter : MissingContract.Presenter {
     }
 
 
-    override fun addItems(
-        createMissing: CreateMissing,
-        context: Context,
-        adapter: MissingAdapter,
-        list: ArrayList<MissingModel>
-    ) {   // 글 작성하기
+    // 글 작성하기
+    override fun addItems(createMissing: CreateMissing, context: Context, adapter: MissingAdapter, list: ArrayList<MissingModel>) {
         val client: OkHttpClient = RetrofitClient.getClient(context, "")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)
 
@@ -201,13 +198,8 @@ class MissingPresenter : MissingContract.Presenter {
         })
     }
 
-    override fun updateItems(
-        pk: Int,
-        missingModel: MissingModel,
-        context: Context,
-        adapter: MissingAdapter,
-        list: ArrayList<MissingModel>
-    ) {    // 글 수정하기
+    // 글 수정하기
+    override fun updateItems(pk: Int, missingModel: MissingModel, context: Context, adapter: MissingAdapter, list: ArrayList<MissingModel>) {
         Log.e("missing UPDATE", "$pk")
         val client: OkHttpClient = RetrofitClient.getClient(context, "")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)
@@ -231,7 +223,8 @@ class MissingPresenter : MissingContract.Presenter {
 
     }
 
-    override fun deleteItems(pk: Int, context: Context) {     // 글 삭제하기
+    // 글 삭제하기
+    override fun deleteItems(pk: Int, context: Context) {
         Log.e("missing DELETE", "$pk")
         val client: OkHttpClient = RetrofitClient.getClient(context, "")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)

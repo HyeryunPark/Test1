@@ -24,7 +24,9 @@
         android:id="@+id/linearLayout11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -35,7 +37,7 @@
             android:id="@+id/mypage_image"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/image"/>
+            android:src="@drawable/image" />
 
         <TextView
             android:id="@+id/mypage_username"
@@ -43,15 +45,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="16dp"
-            android:hint="username" />
+            android:hint="로그인이 필요합니다." />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_margin="16dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout11">
@@ -62,7 +64,7 @@
             android:background="@drawable/underline_textview"
             android:gravity="center_vertical"
             android:padding="16dp"
-            android:text="마이페이지 목록"
+            android:text="프로필 사진 변경"
             android:textSize="18sp" />
 
         <TextView
@@ -71,7 +73,7 @@
             android:background="@drawable/underline_textview"
             android:gravity="center_vertical"
             android:padding="16dp"
-            android:text="목록"
+            android:text="닉네임 변경"
             android:textSize="18sp" />
 
         <TextView
@@ -80,7 +82,7 @@
             android:background="@drawable/underline_textview"
             android:gravity="center_vertical"
             android:padding="16dp"
-            android:text="뭘로하즤"
+            android:text="계정 비밀번호 변경"
             android:textSize="18sp" />
 
         <TextView
@@ -89,9 +91,17 @@
             android:layout_height="wrap_content"
             android:background="@drawable/underline_textview"
             android:gravity="center_vertical"
-            android:textColor="@android:color/holo_red_light"
             android:padding="16dp"
             android:text="로그아웃"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/underline_textview"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:text="회원탈퇴"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -100,6 +110,7 @@
         android:id="@+id/bnv_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/border_topline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
