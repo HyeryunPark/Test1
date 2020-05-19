@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.saveme.R
 import com.example.saveme.base.BaseActivity
@@ -153,6 +154,17 @@ class MissingActivity : BaseActivity(), MissingContract.View {
         intent.putExtra("image2", missingModel.image2)
         intent.putExtra("image3", missingModel.image3)
         startActivityForResult(intent, 102)
+    }
+
+    override fun showNothingText(type: Boolean) {
+
+        if (type) { // type = true (리스트가 비어있을 때)
+            tv_missing_nothingText.visibility = View.VISIBLE
+            rv_missing.visibility = View.GONE
+        } else {
+            tv_missing_nothingText.visibility = View.GONE
+            rv_missing.visibility = View.VISIBLE
+        }
     }
 
     override fun showError(error: String) {

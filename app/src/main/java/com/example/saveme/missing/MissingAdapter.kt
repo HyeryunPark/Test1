@@ -59,7 +59,7 @@ class MissingAdapter(
                 if (item.weight == "모름") {
                     tvMissingWeight.text = item.weight
                 } else
-                    tvMissingWeight.text = item.weight + "kg"
+                    tvMissingWeight.text = item.weight
 
 
                 tvMissingPattern.text = item.pattern

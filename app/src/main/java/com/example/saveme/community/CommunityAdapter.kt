@@ -2,6 +2,7 @@ package com.example.saveme.community
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -60,9 +61,11 @@ class CommunityAdapter(
                 Glide.with(context as CommunityActivity).load(item.img1).into(ivImg1)
 
                 if (item.img2 != null) {
+                    ivImg2.visibility = View.VISIBLE
                     Glide.with(context as CommunityActivity).load(item.img2).into(ivImg2)
                 }
                 if (item.img3 != null) {
+                    ivImg3.visibility = View.VISIBLE
                     Glide.with(context as CommunityActivity).load(item.img3).into(ivImg3)
                 }
 

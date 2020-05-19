@@ -36,7 +36,10 @@ class MissingPresenter : MissingContract.Presenter {
 
         val request: Call<List<GetMissingList>> = retrofitInterface.getMissingData()
         request.enqueue(object : Callback<List<GetMissingList>> {
-            override fun onResponse(call: Call<List<GetMissingList>>, response: Response<List<GetMissingList>>) {
+            override fun onResponse(
+                call: Call<List<GetMissingList>>,
+                response: Response<List<GetMissingList>>
+            ) {
                 if (response.isSuccessful) {
                     Log.e("Success", Gson().toJson(response.body()))
 
@@ -45,7 +48,7 @@ class MissingPresenter : MissingContract.Presenter {
                         for (i in 0 until body.size) {
                             var missingList: GetMissingList = GetMissingList()
                             missingList = body[i]
-                            
+
                             var addData: MissingModel = MissingModel(
                                 missingList.id,
                                 missingList.status,
@@ -71,7 +74,11 @@ class MissingPresenter : MissingContract.Presenter {
                             adapter.addItem(addData)
                             missingView!!.refresh()
                         }
-
+                        if (list.size == 0) {
+                            missingView?.showNothingText(true)
+                        } else {
+                            missingView?.showNothingText(false)
+                        }
                     }
                 }
             }
