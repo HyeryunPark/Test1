@@ -2,12 +2,11 @@ package com.example.saveme.popup
 
 import android.content.Intent
 import android.os.AsyncTask
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import com.example.saveme.R
+import com.example.saveme.base.BaseActivity
 import com.example.saveme.home.HomeActivity
 import kotlinx.android.synthetic.main.activity_pop_up.*
 import org.w3c.dom.Document
@@ -19,13 +18,17 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.xml.parsers.DocumentBuilderFactory
 
-class PopUpActivity : AppCompatActivity() {
+class PopUpActivity : BaseActivity(), PopUpContract.View {
 
+    private lateinit var popupPresenter: PopUpPresenter
     private lateinit var openApiTask: OpenApiTask
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pop_up)
+
+        popupPresenter.takeView(this)   // 자주 까먹는다.. 주의하자
+        popupPresenter.loadNews(this)
 
         btn_start.setOnClickListener {
             var intent = Intent(this, HomeActivity::class.java)
@@ -33,10 +36,16 @@ class PopUpActivity : AppCompatActivity() {
             finish()
         }
 
+
         openApiTask = OpenApiTask()
         openApiTask.execute()
 
     }
+
+    override fun initPresenter() {
+        popupPresenter = PopUpPresenter()
+    }
+
 
     private inner class OpenApiTask : AsyncTask<String, Void, Document>() {
 
@@ -124,11 +133,20 @@ class PopUpActivity : AppCompatActivity() {
             )
 
 //            tv_rescued_number.text = "오늘 구조된 동물\n $todayrescue 마리"
-            tv_rescued_number.text = Html.fromHtml("오늘 구조된 동물<br /> <font color=\"#000000\">$todayrescue</font> 마리", Html.FROM_HTML_MODE_LEGACY)
+            tv_rescued_number.text = Html.fromHtml(
+                "오늘 구조된 동물<br /> <font color=\"#000000\">$todayrescue</font> 마리",
+                Html.FROM_HTML_MODE_LEGACY
+            )
 //            tv_adoption_rate.text = "입양률 <font color=\"#04B404\">$percenteuthanasia</font>%"
-            tv_adoption_rate.text = Html.fromHtml("입양률 <font color=\"#009900\">$percenteuthanasia</font> %", Html.FROM_HTML_MODE_LEGACY)
+            tv_adoption_rate.text = Html.fromHtml(
+                "입양률 <font color=\"#009900\">$percenteuthanasia</font> %",
+                Html.FROM_HTML_MODE_LEGACY
+            )
 //            tv_euthanasia_rate.text = "안락사율 <font color=\"#DF0101\">$percentadopt</font>%"
-            tv_euthanasia_rate.text = Html.fromHtml("안락사율 <font color=\"#FF0000\">$percentadopt</font> %", Html.FROM_HTML_MODE_LEGACY)
+            tv_euthanasia_rate.text = Html.fromHtml(
+                "안락사율 <font color=\"#FF0000\">$percentadopt</font> %",
+                Html.FROM_HTML_MODE_LEGACY
+            )
 
 
         }
@@ -143,5 +161,29 @@ class PopUpActivity : AppCompatActivity() {
                 openApiTask.cancel(true)
         } catch (e: Exception) {
         }
+    }
+
+    override fun setNewsData1(title: String) {
+        popup_news1.text = title
+    }
+    override fun setNewsData2(title: String) {
+        popup_news2.text = title
+    }
+    override fun setNewsData3(title: String) {
+        popup_news3.text = title
+    }
+    override fun setNewsData4(title: String) {
+        popup_news4.text = title
+    }
+    override fun setNewsData5(title: String) {
+        popup_news5.text = title
+    }
+
+    override fun showError(error: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showToastMessage(msg: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

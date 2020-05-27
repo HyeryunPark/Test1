@@ -76,9 +76,9 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:background="@drawable/round_edittext"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@drawable/round_edittext"
                     android:orientation="horizontal">
 
                     <TextView
@@ -162,39 +162,54 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/popup_news1"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/underline_textview"
+                    android:ellipsize="end"
                     android:gravity="center"
-                    android:text="뉴스" />
+                    android:maxLines="1"
+                    android:text="[NEWS]" />
 
                 <TextView
+                    android:id="@+id/popup_news2"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/underline_textview"
+                    android:ellipsize="end"
                     android:gravity="center"
-                    android:text="뉴스" />
+                    android:maxLines="1"
+                    android:text="[NEWS]" />
 
                 <TextView
+                    android:id="@+id/popup_news3"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/underline_textview"
+                    android:ellipsize="end"
                     android:gravity="center"
-                    android:text="뉴스" />
+                    android:maxLines="1"
+                    android:text="[NEWS] 캘리포니아주, 이혼 할 때 반려동물 '양육권지정'..." />
 
                 <TextView
+                    android:id="@+id/popup_news4"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/underline_textview"
+                    android:ellipsize="end"
                     android:gravity="center"
-                    android:text="뉴스" />
+                    android:maxLines="1"
+                    android:text="[NEWS] 견주, 앞다리 없는 반려견 사고치자 '참 잘했어요'" />
 
                 <TextView
+                    android:id="@+id/popup_news5"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/underline_textview"
+                    android:ellipsize="end"
                     android:gravity="center"
-                    android:text="뉴스" />
+                    android:maxLines="1"
+                    android:text="[NEWS] 풍산개, 길잃은 치매노인 곁에서 체온으로 목숨 살려" />
 
             </LinearLayout>
 
