@@ -111,6 +111,11 @@ interface RetrofitInterface {
     // 커뮤니티 글 삭제
 
 
+    // 팝업 뉴스데이터 가져오기
+    @GET("/newsdata")
+    fun loadNewsData(): Call<List<GetPopUp>>
+
+
     @FormUrlEncoded
     @POST("User")
 //    fun post_User(@FieldMap param: HashMap<String, Any>): Call<Json_User>
