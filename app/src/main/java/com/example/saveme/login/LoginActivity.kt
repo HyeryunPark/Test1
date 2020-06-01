@@ -27,8 +27,6 @@ class LoginActivity : BaseActivity(), LoginContract.View {
 
         loginPresenter.takeView(this)   // LoginContract.View를 상속받는 Activity가 생성이 되었다는 것을 Presenter에 알려준다.
 
-        setButton()     // 버튼 이벤트가 발생하면 Presenter에 이벤트가 발생하였다고 알려줌과 동시에 Model로 부터 데이터를 가져오라는 것을 알려준다.
-
         pressedLoginBtn()
 
 
@@ -36,12 +34,6 @@ class LoginActivity : BaseActivity(), LoginContract.View {
 
     override fun initPresenter() {          // BaseActivity에서 Activity가 생성이되면 해당 Activity에 Presenter를 초기화 시켜준다.
         loginPresenter = LoginPresenter()
-    }
-
-    private fun setButton() {
-        /*btn_loginKakao.setOnClickListener {
-            loginPresenter.getUserList()
-        }*/
     }
 
     // LoginActivity에서 로그인버튼을 누름

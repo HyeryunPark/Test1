@@ -116,21 +116,4 @@ interface RetrofitInterface {
     fun loadNewsData(): Call<List<GetPopUp>>
 
 
-    @FormUrlEncoded
-    @POST("User")
-//    fun post_User(@FieldMap param: HashMap<String, Any>): Call<Json_User>
-    fun post_User(@Query("format") json: String, @Body json_user: Json_User): Call<Json_User>
-
-    @FormUrlEncoded
-    @POST("User")
-    fun post_User2(@Field("email") user: String): Call<ResponseBody>
-
-    @FormUrlEncoded
-    @PATCH("User/{pk}/")
-    fun patch_Test(@Path("pk") pk: Int, @Query("format") json: String, @Field("email") User: String): Call<ResponseBody>
-
-    @DELETE("User/{pk}/")
-    fun delete_Patch_User(@Path("pk") pk: Int, @Query("format") json: String): Call<ResponseBody>
-
-
 }

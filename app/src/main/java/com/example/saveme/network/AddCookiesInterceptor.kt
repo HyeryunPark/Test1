@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class AddCookiesInterceptor : Interceptor {
+class AddCookiesInterceptor : Interceptor {     // Request마타 Preference에 저장되어있는 토큰을 함께 Header에 넣어줌
     private lateinit var preferences: SharedPreferences
     internal var context: Context
 

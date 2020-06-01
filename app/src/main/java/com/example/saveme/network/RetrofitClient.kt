@@ -34,7 +34,7 @@ object RetrofitClient {
                     .build()
                 return client
             }
-            else -> {   // 쿠키 없을때 (회원가입)
+            else -> {   // 토큰이 없는 경우 (회원가입)
                 val client = OkHttpClient.Builder()
                     .addInterceptor(loggingInterceptor)
                     .connectTimeout(1, TimeUnit.MINUTES)
