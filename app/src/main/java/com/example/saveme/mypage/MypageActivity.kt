@@ -25,11 +25,6 @@ class MypageActivity : BaseActivity(), MypageContract.View {
         bottomNavigationView()
         mypagePresenter.getUser(this)
 
-        textView12.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        }
-
         btn_logout.setOnClickListener {
             mypagePresenter.logout(this)
         }
@@ -84,6 +79,12 @@ class MypageActivity : BaseActivity(), MypageContract.View {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        mypagePresenter.dropView()
     }
 
     override fun showError(error: String) {
