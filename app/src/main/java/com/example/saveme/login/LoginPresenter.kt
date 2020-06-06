@@ -5,6 +5,7 @@ import android.os.Handler
 import android.util.Log
 import android.widget.Toast
 import com.example.saveme.model.GetUser
+import com.example.saveme.model.userData
 import com.example.saveme.network.RetrofitClient
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
@@ -37,6 +38,7 @@ class LoginPresenter : LoginContract.Presenter {
                     Log.e("Success", Gson().toJson(response.body()))
 
                     getUser(context)
+                    loginView!!.startMainActivity()
                     if(response.body()?.token == null){
                         Toast.makeText(context, "아이디 또는 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
                     } else {
@@ -52,6 +54,7 @@ class LoginPresenter : LoginContract.Presenter {
             override fun onFailure(call: Call<GetUser>, t: Throwable) {
                 Log.e("Login Fail", t.toString())
                 getUser(context)
+                loginView!!.startMainActivity()
 
             }
         })
@@ -62,9 +65,9 @@ class LoginPresenter : LoginContract.Presenter {
         val client: OkHttpClient = RetrofitClient.getClient(context, "addCookie")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)
 
-        retrofitInterface.getUser().enqueue(object : Callback<ResponseBody>{
+        retrofitInterface.getUser().enqueue(object : Callback<userData>{
 
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+            override fun onResponse(call: Call<userData>, response: Response<userData>) {
                 if(response.isSuccessful){
                     Log.e("Success", Gson().toJson(response.body()))
 
@@ -73,7 +76,7 @@ class LoginPresenter : LoginContract.Presenter {
                 }
             }
 
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+            override fun onFailure(call: Call<userData>, t: Throwable) {
                 Log.e("getUser", t.toString())
             }
         })

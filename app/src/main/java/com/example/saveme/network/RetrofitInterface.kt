@@ -45,12 +45,12 @@ interface RetrofitInterface {
     // 로그아웃
     // 헤더에 KEY : Authorization, VALUE : Token 토큰값 으로 보내기
     @POST("/saveme_app/auth/logout/")
-    fun logout(@Header("Authorization") token: String): Call<ResponseBody>
+    fun logout(): Call<ResponseBody>
 
     // 사용자 정보 가져오기
     @GET("/saveme_app/auth/user/")
 //    fun getUser(@Header("Authorization") token: String): Call<ResponseBody>
-    fun getUser(): Call<ResponseBody>
+    fun getUser(): Call<userData>
 
     // 보호소 동물 리스트 받아오기
     @GET("/shelters")

@@ -9,11 +9,14 @@ interface MypageContract {
     interface View : BaseView {
 
         fun bottomNavigationView()
+        fun setUserData(username: String, userEmail: String)
 
+        fun logout()
     }
 
     interface Presenter : BasePresenter<View> {
 
-        fun logout(context: Context, token: String)
+        fun logout(context: Context)
+        fun getUser(context: Context)
     }
 }

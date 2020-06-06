@@ -23,7 +23,7 @@ class ReceivedCookiesInterceptor : Interceptor {    // 로그인 후 받은 Resp
         if (body?.contains("token")!!) {
             val token = body.split("\"".toRegex())
             val token2 = token[15].split(":")
-            Log.e("token", token2[0])
+//            Log.e("token", token2[0])
 
             preferences = context.getSharedPreferences("USERSIGN", 0)
             val editor = preferences.edit()
