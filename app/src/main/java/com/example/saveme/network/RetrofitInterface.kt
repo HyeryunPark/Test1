@@ -47,6 +47,11 @@ interface RetrofitInterface {
     @POST("/saveme_app/auth/logout/")
     fun logout(@Header("Authorization") token: String): Call<ResponseBody>
 
+    // 사용자 정보 가져오기
+    @GET("/saveme_app/auth/user/")
+//    fun getUser(@Header("Authorization") token: String): Call<ResponseBody>
+    fun getUser(): Call<ResponseBody>
+
     // 보호소 동물 리스트 받아오기
     @GET("/shelters")
     fun getShelterData(): Call<List<GetShelterList>>

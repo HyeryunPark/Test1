@@ -18,7 +18,7 @@ object RetrofitClient {
 
     fun getClient(context: Context, type: String): OkHttpClient {
         when (type) {
-            "addCookie" -> {    // 쿠키를 추가 할때
+            "addCookie" -> {    // 토큰을 Header 에 추가 할때
                 val addCookiesInterceptor = AddCookiesInterceptor(context)
                 val client = OkHttpClient.Builder()
                     .addInterceptor(addCookiesInterceptor)
@@ -26,7 +26,7 @@ object RetrofitClient {
                     .build()
                 return client
             }
-            "receiveCookie" -> {    // 쿠키를 저장할 때
+            "receiveCookie" -> {    // 토큰을 저장할 때 (로그인 후)
                 val receivedCookiesInterceptor = ReceivedCookiesInterceptor(context)
                 val client = OkHttpClient.Builder()
                     .addInterceptor(receivedCookiesInterceptor)

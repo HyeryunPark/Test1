@@ -8,6 +8,7 @@ import com.example.saveme.model.GetUser
 import com.example.saveme.network.RetrofitClient
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +27,7 @@ class LoginPresenter : LoginContract.Presenter {
 
     // 로그인
     // view에서 입력한 email과 pawword를 받아와 db에 저장된 정보와 일치하는지 확인하는 함수
-    override fun checkLoginUser(context: Context, inputEmail: String, inputPw: String) {
+    override fun logIn(context: Context, inputEmail: String, inputPw: String) {
         val client: OkHttpClient = RetrofitClient.getClient(context, "receiveCookie")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)
 
@@ -35,11 +36,11 @@ class LoginPresenter : LoginContract.Presenter {
                 if (response.isSuccessful) {
                     Log.e("Success", Gson().toJson(response.body()))
 
+                    getUser(context)
                     if(response.body()?.token == null){
                         Toast.makeText(context, "아이디 또는 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
                     } else {
 //                        Log.e("token not null", response.body()!!.token)
-
                     }
 
                 } else {
@@ -50,9 +51,32 @@ class LoginPresenter : LoginContract.Presenter {
             }
             override fun onFailure(call: Call<GetUser>, t: Throwable) {
                 Log.e("Login Fail", t.toString())
+                getUser(context)
+
             }
         })
 
+    }
+
+    override fun getUser(context: Context) {
+        val client: OkHttpClient = RetrofitClient.getClient(context, "addCookie")
+        val retrofitInterface = RetrofitClient.retrofitInterface(client)
+
+        retrofitInterface.getUser().enqueue(object : Callback<ResponseBody>{
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if(response.isSuccessful){
+                    Log.e("Success", Gson().toJson(response.body()))
+
+                }else{
+
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.e("getUser", t.toString())
+            }
+        })
     }
 
 

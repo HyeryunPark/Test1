@@ -15,8 +15,8 @@ interface LoginContract {
 
     interface Presenter : BasePresenter<View> {
 
-        fun checkLoginUser(context: Context, inputEmail: String, inputPw: String)   // LoginPresenter에서 사용자가 입력한 email과 password가 일치하는지 확인하는 함수
-
+        fun logIn(context: Context, inputEmail: String, inputPw: String)   // LoginPresenter에서 사용자가 입력한 email과 password가 일치하는지 확인하는 함수
+        fun getUser(context: Context)   // 사용자 정보 가져오기
         fun logout()    // 사용자 로그아웃
     }
 }

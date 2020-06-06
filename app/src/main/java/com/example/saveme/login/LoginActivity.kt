@@ -39,7 +39,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     // LoginActivity에서 로그인버튼을 누름
     private fun pressedLoginBtn() {
         btn_login.setOnClickListener {
-            loginPresenter.checkLoginUser(this, et_email.text.toString(), et_pw.text.toString())
+            loginPresenter.logIn(this, et_email.text.toString(), et_pw.text.toString())
         }
     }
 
