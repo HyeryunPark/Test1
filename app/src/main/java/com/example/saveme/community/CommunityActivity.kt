@@ -2,6 +2,7 @@ package com.example.saveme.community
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,6 +10,7 @@ import com.example.saveme.R
 import com.example.saveme.base.BaseActivity
 import com.example.saveme.community.createcommunity.CommunityReportActivity
 import com.example.saveme.home.HomeActivity
+import com.example.saveme.login.LoginActivity
 import com.example.saveme.model.CreateCommunity
 import com.example.saveme.mypage.MypageActivity
 import kotlinx.android.synthetic.main.activity_community.*
@@ -17,6 +19,7 @@ class CommunityActivity : BaseActivity(), CommunityContract.View {
 
     private lateinit var communityPresenter: CommunityPresenter
     var communityList = arrayListOf<CommunityModel>()
+    private lateinit var preferences: SharedPreferences
 
     lateinit var communityAdapter: CommunityAdapter
 
@@ -62,7 +65,12 @@ class CommunityActivity : BaseActivity(), CommunityContract.View {
                             data.getStringExtra("img3")
                         )
 
-                        communityPresenter.addItems(createCommunity, this, communityAdapter, communityList)
+                        communityPresenter.addItems(
+                            createCommunity,
+                            this,
+                            communityAdapter,
+                            communityList
+                        )
                     }
                 }
             }
@@ -92,11 +100,17 @@ class CommunityActivity : BaseActivity(), CommunityContract.View {
 
                 }
                 R.id.bottom_mypage -> {
-                    val intent_mypage = Intent(this, MypageActivity::class.java)
-                    intent_mypage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    overridePendingTransition(0, 0)
-                    startActivity(intent_mypage)
-                    finish()
+                    preferences = this.getSharedPreferences("USERSIGN", 0)
+                    if (preferences.getString("Cookie", "") == "") {
+                        val intent_login = Intent(this, LoginActivity::class.java)
+                        startActivity(intent_login)
+                    } else {
+                        val intent_mypage = Intent(this, MypageActivity::class.java)
+                        intent_mypage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        overridePendingTransition(0, 0)
+                        startActivity(intent_mypage)
+                        finish()
+                    }
                 }
             }
             false

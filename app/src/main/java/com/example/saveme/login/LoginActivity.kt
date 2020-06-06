@@ -8,12 +8,15 @@ import com.example.saveme.home.HomeActivity
 import com.example.saveme.signup.SignUpActivity
 import com.example.saveme.R
 import com.example.saveme.base.BaseActivity
+import com.example.saveme.mypage.MypageActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity(), LoginContract.View {
 
 
     private lateinit var loginPresenter: LoginPresenter     // LoginActivity와 1:1 대응하는 LoginPresenter를 연결시켜주기 위한 초기화 지연변수
+
+//    private var lastTimeBackPressed: Long = -1500
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,8 +30,6 @@ class LoginActivity : BaseActivity(), LoginContract.View {
 
         loginPresenter.takeView(this)   // LoginContract.View를 상속받는 Activity가 생성이 되었다는 것을 Presenter에 알려준다.
 
-        setButton()     // 버튼 이벤트가 발생하면 Presenter에 이벤트가 발생하였다고 알려줌과 동시에 Model로 부터 데이터를 가져오라는 것을 알려준다.
-
         pressedLoginBtn()
 
 
@@ -38,16 +39,10 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         loginPresenter = LoginPresenter()
     }
 
-    private fun setButton() {
-        /*btn_loginKakao.setOnClickListener {
-            loginPresenter.getUserList()
-        }*/
-    }
-
     // LoginActivity에서 로그인버튼을 누름
     private fun pressedLoginBtn() {
         btn_login.setOnClickListener {
-            loginPresenter.checkLoginUser(this, et_email.text.toString(), et_pw.text.toString())
+            loginPresenter.logIn(this, et_email.text.toString(), et_pw.text.toString())
         }
     }
 
@@ -56,10 +51,21 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     }
 
     override fun startMainActivity() {
-        var intent = Intent(this, HomeActivity::class.java)
+        var intent = Intent(this, MypageActivity::class.java)
         startActivity(intent)
         finish()
     }
+
+/*    override fun onBackPressed() {
+//        super.onBackPressed()
+
+        // ( 나중에 버튼 누른 시간 - 이전에 버튼 누른 시간 ) <= 1.5초
+        if (System.currentTimeMillis() - lastTimeBackPressed <= 1500)
+            finish()
+        lastTimeBackPressed = System.currentTimeMillis()
+        Toast.makeText(this, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+
+    }*/
 
     override fun onDestroy() {
         super.onDestroy()

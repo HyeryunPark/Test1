@@ -2,6 +2,7 @@ package com.example.saveme.mypage
 
 import android.content.Context
 import android.util.Log
+import com.example.saveme.model.userData
 import com.example.saveme.network.RetrofitClient
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
@@ -12,30 +13,52 @@ import retrofit2.Response
 
 class MypagePresenter : MypageContract.Presenter {
 
-    private var mypageView : MypageContract.View? = null
+    private var mypageView: MypageContract.View? = null
 
     // LOGOUT
-    override fun logout(context: Context, token: String) {
-        val client: OkHttpClient = RetrofitClient.getClient(context, "")
+    override fun logout(context: Context) {
+        val client: OkHttpClient = RetrofitClient.getClient(context, "addCookie")
         val retrofitInterface = RetrofitClient.retrofitInterface(client)
 
-        retrofitInterface.logout(token).enqueue(object : Callback<ResponseBody>{
+        retrofitInterface.logout().enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 Log.e("Logout Success", Gson().toJson(response.body()))
-                if(response.body() !== null){
 
-
-                }else {
-
+                if (response.isSuccessful) {
+                    Log.e("logout", "성공")
+                    mypageView!!.logout()
                 }
 
             }
+
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Log.e("Logout Fail",t.toString())
+                Log.e("Logout Fail", t.toString())
             }
 
         })
 
+    }
+
+    override fun getUser(context: Context) {
+        val client: OkHttpClient = RetrofitClient.getClient(context, "addCookie")
+        val retrofitInterface = RetrofitClient.retrofitInterface(client)
+
+        retrofitInterface.getUser().enqueue(object : Callback<userData> {
+
+            override fun onResponse(call: Call<userData>, response: Response<userData>) {
+                if (response.isSuccessful) {
+                    Log.e("Success", Gson().toJson(response.body()))
+
+                    mypageView?.setUserData(response.body()!!.username, response.body()!!.email)
+                } else {
+
+                }
+            }
+
+            override fun onFailure(call: Call<userData>, t: Throwable) {
+                Log.e("getUser", t.toString())
+            }
+        })
     }
 
     override fun takeView(view: MypageContract.View) {

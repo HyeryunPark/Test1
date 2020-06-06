@@ -45,7 +45,12 @@ interface RetrofitInterface {
     // 로그아웃
     // 헤더에 KEY : Authorization, VALUE : Token 토큰값 으로 보내기
     @POST("/saveme_app/auth/logout/")
-    fun logout(@Header("Authorization") token: String): Call<ResponseBody>
+    fun logout(): Call<ResponseBody>
+
+    // 사용자 정보 가져오기
+    @GET("/saveme_app/auth/user/")
+//    fun getUser(@Header("Authorization") token: String): Call<ResponseBody>
+    fun getUser(): Call<userData>
 
     // 보호소 동물 리스트 받아오기
     @GET("/shelters")
@@ -114,23 +119,6 @@ interface RetrofitInterface {
     // 팝업 뉴스데이터 가져오기
     @GET("/newsdata")
     fun loadNewsData(): Call<List<GetPopUp>>
-
-
-    @FormUrlEncoded
-    @POST("User")
-//    fun post_User(@FieldMap param: HashMap<String, Any>): Call<Json_User>
-    fun post_User(@Query("format") json: String, @Body json_user: Json_User): Call<Json_User>
-
-    @FormUrlEncoded
-    @POST("User")
-    fun post_User2(@Field("email") user: String): Call<ResponseBody>
-
-    @FormUrlEncoded
-    @PATCH("User/{pk}/")
-    fun patch_Test(@Path("pk") pk: Int, @Query("format") json: String, @Field("email") User: String): Call<ResponseBody>
-
-    @DELETE("User/{pk}/")
-    fun delete_Patch_User(@Path("pk") pk: Int, @Query("format") json: String): Call<ResponseBody>
 
 
 }
